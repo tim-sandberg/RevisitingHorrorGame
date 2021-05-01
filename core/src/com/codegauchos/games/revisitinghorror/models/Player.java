@@ -7,6 +7,7 @@ public class Player {
 	private String _name;
 	private String _keyAbility;
 	private String _hairColor;
+	private float _health;
 	
 	/**
 	 * getter!
@@ -39,5 +40,15 @@ public class Player {
 	
 	public void setHairColor(String value) {
 		this._hairColor = value;
+	}
+
+
+	public float getHealth() {
+		return _health;
+	}
+
+
+	public void setHealth(float _health) {
+		this._health = _health;
 	}
 }
