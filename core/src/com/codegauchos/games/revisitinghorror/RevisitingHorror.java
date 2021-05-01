@@ -6,6 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * responsible for handling multiple screens and provides some 
+ * helper methods for this purpose, alongside an implementation 
+ * of ApplicationListener for you to use
+ * 
+ * @author tim
+ *
+ */
 public class RevisitingHorror extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
