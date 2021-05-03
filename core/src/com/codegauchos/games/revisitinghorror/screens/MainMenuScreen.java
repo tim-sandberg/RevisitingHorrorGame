@@ -7,11 +7,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 
 public class MainMenuScreen implements Screen {
-	final RevisitingHorror revisitingHorrorGame;
+	private final RevisitingHorror _revisitingHorrorGame;
 	private OrthographicCamera _camera;
-
+	
 	public MainMenuScreen(RevisitingHorror game) {
-		this.revisitingHorrorGame = game;
+		this._revisitingHorrorGame = game;
 
 		this._camera = new OrthographicCamera();
 		this._camera.setToOrtho(false, RevisitingHorror.SCREEN_WIDTH, RevisitingHorror.SCREEN_HEIGHT);
@@ -28,15 +28,15 @@ public class MainMenuScreen implements Screen {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 
 		this._camera.update();
-		this.revisitingHorrorGame.batch.setProjectionMatrix(this._camera.combined);
+		this._revisitingHorrorGame.batch.setProjectionMatrix(this._camera.combined);
 
-		this.revisitingHorrorGame.batch.begin();
-		this.revisitingHorrorGame.horrorFont.draw(this.revisitingHorrorGame.batch, "Revisting Horror!!", 500, 650);
-		this.revisitingHorrorGame.horrorFont.draw(this.revisitingHorrorGame.batch, "(tap anywhere to start)", 100, 100);
-		this.revisitingHorrorGame.batch.end();
+		this._revisitingHorrorGame.batch.begin();
+		this._revisitingHorrorGame.horrorFont.draw(this._revisitingHorrorGame.batch, "Revisting Horror!!", 500, 650);
+		this._revisitingHorrorGame.horrorFont.draw(this._revisitingHorrorGame.batch, "(tap anywhere to start)", 100, 100);
+		this._revisitingHorrorGame.batch.end();
 		
 		if(Gdx.input.isTouched()==true) {
-			this.revisitingHorrorGame.setScreen(new GameScreen(this.revisitingHorrorGame));
+			this._revisitingHorrorGame.setScreen(new GameScreen(this._revisitingHorrorGame));
 			this.dispose();
 		}
 	}

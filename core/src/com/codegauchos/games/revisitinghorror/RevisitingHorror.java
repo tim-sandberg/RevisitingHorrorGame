@@ -14,28 +14,28 @@ import com.codegauchos.games.revisitinghorror.screens.MainMenuScreen;
  * @author tim
  *
  */
-public class RevisitingHorror extends Game{
+public class RevisitingHorror extends Game {
 	public SpriteBatch batch;
 	public BitmapFont horrorFont;
-	
+
 	// constants
 	public static final int SCREEN_WIDTH = 800;
 	public static final int SCREEN_HEIGHT = 400;
-	
+
 	@Override
 	public void create() {
 		horrorFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
-		
+
 		// SpriteBatch: special class that is used to draw 2D images
 		batch = new SpriteBatch();
-				
+
 		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override
 	public void render() {
 		// important
-		super.render();		
+		super.render();
 	}
 
 	@Override
