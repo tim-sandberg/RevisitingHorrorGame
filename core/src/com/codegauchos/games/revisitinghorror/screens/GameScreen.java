@@ -8,15 +8,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
+import com.codegauchos.games.revisitinghorror.models.Opponent;
+import com.codegauchos.games.revisitinghorror.models.Player;
 
 public class GameScreen implements Screen {
 	private final RevisitingHorror _revisitingHorrorGame;
 	private Sprite _backgroundSprite;
 	private Texture _backgroundTexture;
 	private OrthographicCamera _camera;
-	private Rectangle _cato;
-	private Texture _catoImage;
-
+	private Player _player;
+	private Opponent _cato;
+	
 	public GameScreen(final RevisitingHorror game) {
 		this._revisitingHorrorGame = game;
 
@@ -32,14 +34,8 @@ public class GameScreen implements Screen {
 		this._backgroundTexture = new Texture(Gdx.files.internal("images/Battle Scene.png"));
 		this._backgroundSprite = new Sprite(this._backgroundTexture, 0, 0, RevisitingHorror.SCREEN_WIDTH, RevisitingHorror.SCREEN_HEIGHT);
 
-		this._catoImage = new Texture(Gdx.files.internal("images/Cato sprite.png"));
-
-		this._cato = new Rectangle();
-		this._cato.x = RevisitingHorror.SCREEN_WIDTH / 2 - 64 / 2;
-		this._cato.y = 20;
-		this._cato.width = 64;
-		this._cato.height = 64;
-
+		this._cato = new Opponent("images/Cato sprite.png", 64, 64, 1700, 200);
+		this._player = new Player("images/Katniss sprite.png", 64, 64, 100, 200);
 	}
 
 	@Override
@@ -74,7 +70,9 @@ public class GameScreen implements Screen {
 		this._backgroundSprite.draw(this._revisitingHorrorGame.batch);
 		this._revisitingHorrorGame.batch.enableBlending();
 
-		this._revisitingHorrorGame.batch.draw(this._catoImage, this._cato.x, this._cato.y);
+		this._revisitingHorrorGame.batch.draw(this._cato.getCharacterImage(), this._cato.getHitBox().x, this._cato.getHitBox().y);
+		this._revisitingHorrorGame.batch.draw(this._player.getCharacterImage(), this._player.getHitBox().x, this._player.getHitBox().y);
+		
 		this._revisitingHorrorGame.batch.end();
 
 	}
@@ -105,7 +103,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		this._catoImage.dispose();
+		this._cato.getCharacterImage().dispose();
 
 	}
 

@@ -31,8 +31,8 @@ public class MainMenuScreen implements Screen {
 		this._revisitingHorrorGame.batch.setProjectionMatrix(this._camera.combined);
 
 		this._revisitingHorrorGame.batch.begin();
-		this._revisitingHorrorGame.horrorFont.draw(this._revisitingHorrorGame.batch, "Revisting Horror!!", 500, 650);
-		this._revisitingHorrorGame.horrorFont.draw(this._revisitingHorrorGame.batch, "(tap anywhere to start)", 100, 100);
+		this._revisitingHorrorGame.horrorTitleFont.draw(this._revisitingHorrorGame.batch, "Revisting Horror!!", 500, 650);
+		this._revisitingHorrorGame.horrorTitleFont.draw(this._revisitingHorrorGame.batch, "(tap anywhere to start)", 100, 100);
 		this._revisitingHorrorGame.batch.end();
 		
 		if(Gdx.input.isTouched()==true) {
