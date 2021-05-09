@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -12,14 +13,18 @@ import com.codegauchos.games.revisitinghorror.models.Opponent;
 import com.codegauchos.games.revisitinghorror.models.Player;
 
 public class GameScreen implements Screen {
+	private boolean _startCountDown;
 	private final RevisitingHorror _revisitingHorrorGame;
 	private Sprite _backgroundSprite;
 	private Texture _backgroundTexture;
 	private OrthographicCamera _camera;
+	private BitmapFont _countDownFont;
 	private Player _player;
 	private Opponent _cato;
-	
+
 	public GameScreen(final RevisitingHorror game) {
+		this._startCountDown = false;
+
 		this._revisitingHorrorGame = game;
 
 		_camera = new OrthographicCamera();
@@ -32,9 +37,11 @@ public class GameScreen implements Screen {
 
 	private void setImageObjects() {
 		this._backgroundTexture = new Texture(Gdx.files.internal("images/Battle Scene.png"));
-		this._backgroundSprite = new Sprite(this._backgroundTexture, 0, 0, RevisitingHorror.SCREEN_WIDTH, RevisitingHorror.SCREEN_HEIGHT);
+		this._backgroundSprite = new Sprite(this._backgroundTexture, 0, 0, RevisitingHorror.SCREEN_WIDTH,
+				RevisitingHorror.SCREEN_HEIGHT);
 
-		this._cato = new Opponent("images/Cato sprite.png", 64, 64, 1700, 200);
+		this._countDownFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
+		this._cato = new Opponent("images/Cato sprite.png", 64, 64, 2000, 200);
 		this._player = new Player("images/Katniss sprite.png", 64, 64, 100, 200);
 	}
 
@@ -60,6 +67,11 @@ public class GameScreen implements Screen {
 		// coordinate system specified by the camera.
 		this._revisitingHorrorGame.batch.setProjectionMatrix(_camera.combined);
 
+		// bad guy walk up
+		if (this._cato.getHitBox().x > 1600) {
+			this._cato.getHitBox().x -= 1;
+		}
+
 		// begin a new batch and start drawing
 		this._revisitingHorrorGame.batch.begin();
 
@@ -70,9 +82,16 @@ public class GameScreen implements Screen {
 		this._backgroundSprite.draw(this._revisitingHorrorGame.batch);
 		this._revisitingHorrorGame.batch.enableBlending();
 
-		this._revisitingHorrorGame.batch.draw(this._cato.getCharacterImage(), this._cato.getHitBox().x, this._cato.getHitBox().y);
-		this._revisitingHorrorGame.batch.draw(this._player.getCharacterImage(), this._player.getHitBox().x, this._player.getHitBox().y);
-		
+		this._revisitingHorrorGame.batch.draw(this._cato.getCharacterImage(), this._cato.getHitBox().x,
+				this._cato.getHitBox().y);
+		this._revisitingHorrorGame.batch.draw(this._player.getCharacterImage(), this._player.getHitBox().x,
+				this._player.getHitBox().y);
+
+		// start count down
+		if (this._cato.getHitBox().x <= 1600) {
+			this._countDownFont.draw(this._revisitingHorrorGame.batch, "3", 900, 650);
+		}
+
 		this._revisitingHorrorGame.batch.end();
 
 	}

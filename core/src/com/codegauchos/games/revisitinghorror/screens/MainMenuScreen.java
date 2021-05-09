@@ -10,6 +10,7 @@ public class MainMenuScreen implements Screen {
 	private final RevisitingHorror _revisitingHorrorGame;
 	private OrthographicCamera _camera;
 	
+	// constructor for MainMenuScreen
 	public MainMenuScreen(RevisitingHorror game) {
 		this._revisitingHorrorGame = game;
 
@@ -25,6 +26,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		// clear the screen and put a blue background on it
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 
 		this._camera.update();

@@ -3,9 +3,10 @@ package com.codegauchos.games.revisitinghorror.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 
-public class CharacterBase {/*
+public class CharacterBase extends Actor{/*
 	 * this is a field!
 	 */
 	private String _name;
