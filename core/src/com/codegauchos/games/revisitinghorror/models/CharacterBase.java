@@ -26,7 +26,7 @@ abstract class CharacterBase extends Actor {
 	private String _name;
 	private Texture _characterImage;
 	private float _health;
-	private Rectangle _hitBox;
+//	private Rectangle _hitBox;
 	private Sprite _sprite;
 
 	public float getHealth() {
@@ -62,13 +62,13 @@ abstract class CharacterBase extends Actor {
 		this._characterImage = characterImage;
 	}
 
-	public Rectangle getHitBox() {
-		return _hitBox;
-	}
-
-	public void setHitBox(Rectangle hitBox) {
-		this._hitBox = hitBox;
-	}
+//	public Rectangle getHitBox() {
+//		return _hitBox;
+//	}
+//
+//	public void setHitBox(Rectangle hitBox) {
+//		this._hitBox = hitBox;
+//	}
 
 	public Sprite getSprite() {
 		return _sprite;
@@ -130,7 +130,7 @@ abstract class CharacterBase extends Actor {
 		character.width = width;
 		character.height = height;
 
-		this.setHitBox(character);
+//		this.setHitBox(character);
 
 	}
 

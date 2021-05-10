@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 	private OrthographicCamera _camera;
 	private BitmapFont _countDownFont;
 //	private Player _player;
-//	private Opponent _cato;
+	private Opponent _cato;
 	/**
 	 * The Stage class has a camera, SpriteBatch, and a root group and handles
 	 * drawing the actors and distributing input events.
@@ -85,12 +85,12 @@ public class GameScreen implements Screen {
 				RevisitingHorrorAssetDescriptor.player.fileName);
 		katniss.spritePosition(100, 200);
 
-		Opponent cato = new Opponent(this._assetManager.get(RevisitingHorrorAssetDescriptor.opponent),
+		this._cato = new Opponent(this._assetManager.get(RevisitingHorrorAssetDescriptor.opponent),
 				RevisitingHorrorAssetDescriptor.opponent.fileName);
-		cato.spritePosition(2000, 200);
+		this._cato.spritePosition(2000, 200);
 
 		this._stage.addActor(katniss);
-		this._stage.addActor(cato);
+		this._stage.addActor(this._cato);
 	}
 
 	@Override
@@ -115,9 +115,11 @@ public class GameScreen implements Screen {
 //		this._revisitingHorrorGame.batch.setProjectionMatrix(_camera.combined);
 //
 //		// bad guy walk up
-//		if (this._cato.getHitBox().x > 1600) {
-//			this._cato.getHitBox().x -= 1;
-//		}
+		if (this._cato.getSprite().getX() > 1600) {
+			float newPosition = this._cato.getSprite().getX() - 1;
+
+			this._cato.getSprite().setX(newPosition);
+		}
 //
 //		// begin a new batch and start drawing
 //		this._revisitingHorrorGame.batch.begin();
