@@ -1,5 +1,6 @@
 package com.codegauchos.games.revisitinghorror;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -24,6 +25,8 @@ public class RevisitingHorror extends Game {
 
 	@Override
 	public void create() {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		
 		horrorTitleFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
 
 		// SpriteBatch: special class that is used to draw 2D images
