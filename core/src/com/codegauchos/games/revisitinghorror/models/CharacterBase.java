@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,9 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 
 /**
- * Reference:
- * The Actor class is a node in the graph which has a position, rectangular size, 
- * origin, scale, rotation, and color
+ * Reference: The Actor class is a node in the graph which has a position,
+ * rectangular size, origin, scale, rotation, and color
  * 
  * @author tim
  *
@@ -92,7 +92,7 @@ abstract class CharacterBase extends Actor {
 		this.spritePosition(this.getSprite().getX(), _health);
 
 		this.setTouchable(Touchable.enabled);
-		
+
 		this.addEventHandlers(actorName);
 	}
 	// ********** END: CONSTRUCTORs *****************************
@@ -116,10 +116,10 @@ abstract class CharacterBase extends Actor {
 	/**
 	 * draw this actor
 	 */
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		this.getSprite().draw(batch);
-	}
+//	@Override
+//	public void draw(Batch batch, float parentAlpha) {
+//		this.getSprite().draw(batch);
+//	}
 
 	public void setCharacter(String characterImagePath, int width, int height, int startingX, int startingY) {
 		this.setCharacterImage(new Texture(Gdx.files.internal(characterImagePath)));
@@ -144,5 +144,4 @@ abstract class CharacterBase extends Actor {
 			}
 		});
 	}
-
 }
