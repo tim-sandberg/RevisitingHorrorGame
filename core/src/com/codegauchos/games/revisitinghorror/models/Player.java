@@ -15,8 +15,9 @@ public class Player extends Actor {
 	private String _hairColor;
 	private int _agility;
 	private int _defense;
+	private boolean _leftMove;
+	private boolean _rightMove;
 	private Sprite _sprite;
-	private boolean _movingRight = false;
 	private int _stamina;
 	private float _deltaX;
 
@@ -65,8 +66,24 @@ public class Player extends Actor {
 		return _deltaX;
 	}
 
-	public void setDeltaX(int speed) {
+	public void setDeltaX(float speed) {
 		this._deltaX = speed;
+	}
+
+	public void setLeftMove(boolean isLeftMove) {
+		if (this._rightMove && isLeftMove) {
+			this._rightMove = false;
+		}
+
+		this._leftMove = isLeftMove;
+	}
+
+	public void setRightMove(boolean isRightMove) {
+		if (this._leftMove && isRightMove) {
+			this._leftMove = false;
+		}
+
+		this._rightMove = isRightMove;
 	}
 
 	// ****** END: members *************
@@ -74,7 +91,7 @@ public class Player extends Actor {
 	// ******* constructor ***********
 	public Player(Texture texture, final String actorName) {
 		// set player horizontal movement speed
-		this.setDeltaX(1);
+		this.setDeltaX(100f);
 
 		this.setSprite(new Sprite(texture));
 
@@ -102,8 +119,12 @@ public class Player extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 //		Gdx.app.log("Player", "In draw(), updating player image");
 
-		if (this._movingRight == true) {
-			this.getSprite().translateX(this.getDeltaX());
+		if (this._leftMove == true) {
+			this.getSprite().translateX(-this.getDeltaX() * Gdx.graphics.getDeltaTime());		
+		}
+
+		if (this._rightMove == true) {
+			this.getSprite().translateX(this.getDeltaX() * Gdx.graphics.getDeltaTime());
 		}
 
 		this.getSprite().draw(batch);
@@ -112,7 +133,8 @@ public class Player extends Actor {
 	public void spritePosition(float x, float y) {
 		this.getSprite().setPosition(x, y);
 
-		this.setBounds(this.getSprite().getX(), this.getSprite().getY(), this.getSprite().getWidth(), this.getSprite().getHeight());
+		this.setBounds(this.getSprite().getX(), this.getSprite().getY(), this.getSprite().getWidth(),
+				this.getSprite().getHeight());
 	}
 
 	private void addEventHandlers(String actorName) {
@@ -128,6 +150,23 @@ public class Player extends Actor {
 				return true;
 			}
 		});
+
+		this.addListener(new InputListener() {
+			@Override
+			public boolean keyUp(InputEvent event, int keyCode) {
+				Gdx.app.log("Player", "keyUp(), key up event occurred for " + actorName);
+
+				if (_leftMove == true) {
+					setLeftMove(false);
+				}
+
+				if (_rightMove == true) {
+					setRightMove(false);
+				}
+
+				return true;
+			}
+		});
 	}
 
 	/**
@@ -136,18 +175,18 @@ public class Player extends Actor {
 	 * 
 	 * @param keyCode
 	 */
-	public void handleMovement(int keyCode) {
+	private void handleMovement(int keyCode) {
 		// 'd'
 		if (keyCode == Input.Keys.D || keyCode == Input.Keys.LEFT) {
 			Gdx.app.log("Player", "In HandleMovement(), move player to the right");
 
-			this.getSprite().translateX(this.getDeltaX());
+			this.setRightMove(true);
 		} else if (keyCode == Input.Keys.A || keyCode == Input.Keys.RIGHT) {
 			Gdx.app.log("Player", "In HandleMovement(), move player to the left");
 
-			this.getSprite().translateX(-this.getDeltaX());
+			this.setLeftMove(true);
 		}
-		
+
 //		Gdx.app.log("Player", "Player position: " + this.getSprite().getX());
 	}
 }
