@@ -17,15 +17,17 @@ import com.codegauchos.games.revisitinghorror.screens.MainMenuScreen;
  *
  */
 public class RevisitingHorror extends Game {
-	private SpriteBatch _batch;
+	// fields
+	private SpriteBatch _spriteBatch;
 	public BitmapFont horrorTitleFont;
 
 	// COMMENT: constants
 	public static final int SCREEN_WIDTH = 1920;
 	public static final int SCREEN_HEIGHT = 1080;
 
+	// Members (getters and setters) here
 	public SpriteBatch getSpriteBatch() {
-		return this._batch;
+		return this._spriteBatch;
 	}
 
 	@Override
@@ -35,20 +37,20 @@ public class RevisitingHorror extends Game {
 		horrorTitleFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
 
 		// SpriteBatch: special class that is used to draw 2D images
-		_batch = new SpriteBatch();
+		_spriteBatch = new SpriteBatch();
 
 		this.setScreen(new MainMenuScreen(this));
 	}
 
-//	@Override
-//	public void render() {
-//		// important
-//		super.render();
-//	}
+	@Override
+	public void render() {
+		// important
+		super.render();
+	}
 
 	@Override
 	public void dispose() {
-		_batch.dispose();
+		_spriteBatch.dispose();
 		horrorTitleFont.dispose();
 	}
 

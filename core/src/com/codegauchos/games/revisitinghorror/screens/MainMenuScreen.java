@@ -16,18 +16,15 @@ import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 import com.codegauchos.games.revisitinghorror.assetmanager.Asset;
 
 public class MainMenuScreen implements Screen {
+	// fields
 	private Button _gameButton;
 	private Stage _mainMenuStage;
 	private final RevisitingHorror _revisitingHorrorGame;
-//	private OrthographicCamera _camera;
 	private Viewport _viewport;
 
 	// constructor for MainMenuScreen
 	public MainMenuScreen(RevisitingHorror game) {
 		this._revisitingHorrorGame = game;
-
-//		this._camera = new OrthographicCamera();
-//		this._camera.setToOrtho(false, RevisitingHorror.SCREEN_WIDTH, RevisitingHorror.SCREEN_HEIGHT);
 
 		this.initialize();
 	}
@@ -50,11 +47,8 @@ public class MainMenuScreen implements Screen {
 		// clear the screen and put a blue background on it
 		ScreenUtils.clear(0.25f, 0.19f, 1.0f, 1);
 
-//		this._camera.update();
 		this._mainMenuStage.act(Gdx.graphics.getDeltaTime());
 		
-//		this._revisitingHorrorGame.batch.setProjectionMatrix(this._camera.combined);
-
 		this._mainMenuStage.getBatch().begin();	
 		
 		this._revisitingHorrorGame.horrorTitleFont.draw(this._mainMenuStage.getBatch(), "Revisiting Horror!!", 500,

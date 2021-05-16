@@ -1,20 +1,29 @@
 package com.codegauchos.games.revisitinghorror.models;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
+import com.codegauchos.games.revisitinghorror.events.GameEventListener;
+import com.codegauchos.games.revisitinghorror.events.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.GameEventStartIntro;
 
-public class Player extends Actor {
+public class Player extends Actor implements GameEventListener {
 	// ****** fields *************
 	private String _hairColor;
 	private int _agility;
 	private int _defense;
+	private GameEventManager _gameEventManager;
+	private String _gameEventType;
 	private boolean _leftMove;
 	private boolean _rightMove;
 	private Sprite _sprite;
@@ -89,15 +98,8 @@ public class Player extends Actor {
 	// ****** END: members *************
 
 	// ******* constructor ***********
-	public Player(Texture texture, final String actorName) {
-		// set player horizontal movement speed
-		this.setDeltaX(100f);
-
-		this.setSprite(new Sprite(texture));
-
-		this.spritePosition(this.getSprite().getX(), this.getSprite().getY());
-
-		this.setTouchable(Touchable.enabled);
+	public Player(Texture texture, final String actorName, GameEventManager gameEventManager) {
+		this.initialize(texture, gameEventManager);
 
 		this.addEventHandlers(actorName);
 	}
@@ -106,6 +108,14 @@ public class Player extends Actor {
 	@Override
 	public void act(float delta) {
 		super.act(Gdx.graphics.getDeltaTime());
+
+		if (this._leftMove == true) {
+			this.getSprite().translateX(-this.getDeltaX() * Gdx.graphics.getDeltaTime());
+		}
+
+		if (this._rightMove == true) {
+			this.getSprite().translateX(this.getDeltaX() * Gdx.graphics.getDeltaTime());
+		}
 	}
 
 	/**
@@ -119,14 +129,6 @@ public class Player extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 //		Gdx.app.log("Player", "In draw(), updating player image");
 
-		if (this._leftMove == true) {
-			this.getSprite().translateX(-this.getDeltaX() * Gdx.graphics.getDeltaTime());		
-		}
-
-		if (this._rightMove == true) {
-			this.getSprite().translateX(this.getDeltaX() * Gdx.graphics.getDeltaTime());
-		}
-
 		this.getSprite().draw(batch);
 	}
 
@@ -135,6 +137,22 @@ public class Player extends Actor {
 
 		this.setBounds(this.getSprite().getX(), this.getSprite().getY(), this.getSprite().getWidth(),
 				this.getSprite().getHeight());
+	}
+
+	private void initialize(Texture texture, GameEventManager gameEventManager) {
+		// set player horizontal movement speed
+		this.setDeltaX(100f);
+
+		this.setSprite(new Sprite(texture));
+
+		this.spritePosition(this.getSprite().getX(), this.getSprite().getY());
+
+		this.setTouchable(Touchable.enabled);
+
+		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("START_INTRO");
+		this.setGameEventType(gameEventTypeIndex);
+
+		this._gameEventManager = gameEventManager;
 	}
 
 	private void addEventHandlers(String actorName) {
@@ -156,6 +174,8 @@ public class Player extends Actor {
 			public boolean keyUp(InputEvent event, int keyCode) {
 				Gdx.app.log("Player", "keyUp(), key up event occurred for " + actorName);
 
+				// player has lifted up on movement key
+				// KILL movement!
 				if (_leftMove == true) {
 					setLeftMove(false);
 				}
@@ -167,6 +187,8 @@ public class Player extends Actor {
 				return true;
 			}
 		});
+
+		this._gameEventManager.addEventListener(this);
 	}
 
 	/**
@@ -189,4 +211,45 @@ public class Player extends Actor {
 
 //		Gdx.app.log("Player", "Player position: " + this.getSprite().getX());
 	}
+
+	/************ EVENT HANDLERS **************/
+
+	@Override
+	public boolean handle(Event event) {
+		Gdx.app.log("Player", String.format("In handle(), %s ", event.getClass().toString()));
+		
+		return false;
+	}
+
+	public void startIntro(int level) {
+		Gdx.app.log("Player", "In startIntro(), player let's go!");
+
+	}
+
+	@Override
+	public void onEvent(GameEventAbstract gameEvent) {
+		Gdx.app.log("Player", String.format("In onEvent(), event: %s occurred.", gameEvent.getGameEventType()));
+
+		if (gameEvent.getGameEventType() == Arrays.asList(GameEventManager.GameEventTypes).get(0)) {
+			Gdx.app.log("Player", String.format("In onEvent(), event: %s occurred. startIntro() will execute now.",
+					gameEvent.getGameEventType()));
+
+			this.startIntro(1);
+		}
+
+	}
+	
+	@Override
+	public String getGameEventType() {
+		return this._gameEventType;
+	}
+
+	@Override
+	public void setGameEventType(int gameEventTypeIndex) {
+		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
+
+	}
+
+	/************ END: EVENT HANDLERS **************/
+
 }

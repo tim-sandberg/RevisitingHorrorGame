@@ -1,23 +1,23 @@
 package com.codegauchos.games.revisitinghorror.screens;
 
-import com.badlogic.gdx.Game;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 import com.codegauchos.games.revisitinghorror.assetmanager.RevisitingHorrorAssetDescriptor;
+import com.codegauchos.games.revisitinghorror.events.GameEventListener;
+import com.codegauchos.games.revisitinghorror.events.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.GameEventStartIntro;
 import com.codegauchos.games.revisitinghorror.models.Opponent;
 import com.codegauchos.games.revisitinghorror.models.Player;
 
@@ -31,10 +31,9 @@ public class GameScreen implements Screen {
 	// fields are here ( because they are private -- exclusively accessed
 	// in this class!
 	private final AssetManager _assetManager;
-	private boolean _startCountDown;
+	private final GameEventManager _gameEventManager;
 	private final RevisitingHorror _revisitingHorrorGame;
-	private Texture _backgroundTexture;
-//	private OrthographicCamera _camera;
+	private boolean _startCountDown;
 	private BitmapFont _countDownFont;
 	private Player _katniss;
 	private Opponent _cato;
@@ -47,28 +46,15 @@ public class GameScreen implements Screen {
 
 	// ***** CONSTRUCTORS ********************
 	public GameScreen(final RevisitingHorror revisitingHorrorGame) {
-		this._startCountDown = false;
+		this._startCountDown = true;
 
 		this._assetManager = new AssetManager();
 
+		this._gameEventManager = new GameEventManager();
+
 		this._revisitingHorrorGame = revisitingHorrorGame;
-
-//		_camera = new OrthographicCamera();
-//		// in pixels
-//		_camera.setToOrtho(false, RevisitingHorror.SCREEN_WIDTH, RevisitingHorror.SCREEN_HEIGHT);
-
 	}
 	// ***** CONSTRUCTORS ********************
-
-//	private void setImageObjects() {
-//		this._backgroundTexture = new Texture(Gdx.files.internal("images/Battle Scene.png"));
-////		this._backgroundSprite = new Sprite(this._backgroundTexture, 0, 0, RevisitingHorror.SCREEN_WIDTH,
-////				RevisitingHorror.SCREEN_HEIGHT);
-//
-//		this._countDownFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
-////		this._cato = new Opponent("images/Cato sprite.png", 64, 64, 2000, 200);
-////		this._player = new Player("images/Katniss sprite.png", 64, 64, 100, 200);
-//	}
 
 	@Override
 	public void show() {
@@ -94,6 +80,13 @@ public class GameScreen implements Screen {
 //		ScreenUtils.clear(0, 0, 0.2f, 1);
 		Gdx.gl30.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
+		// start intro of game
+		if (this._startCountDown == true) {
+			this._startCountDown = false;
+
+			this.startIntro(1);
+		}
+
 		// like update, any movement can be handled at this time
 		// every actor's act() gets called
 		this._gameScreenStage.act(Gdx.graphics.getDeltaTime());
@@ -108,11 +101,11 @@ public class GameScreen implements Screen {
 //	be disabled unless it is needed
 		this._gameScreenStage.getBatch().disableBlending();
 
-		this._gameScreenStage.getBatch().draw(battleSceneBackground, 0, 0, RevisitingHorror.SCREEN_WIDTH,
-				RevisitingHorror.SCREEN_HEIGHT);
+//		this._gameScreenStage.getBatch().draw(battleSceneBackground, 0, 0, RevisitingHorror.SCREEN_WIDTH,
+//				RevisitingHorror.SCREEN_HEIGHT);
 
 		this._gameScreenStage.getBatch().enableBlending();
-		
+
 		this._gameScreenStage.getBatch().end();
 
 		this._gameScreenStage.draw();
@@ -175,24 +168,56 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-//		this._cato.getCharacterImage().dispose();
 		this._gameScreenStage.dispose();
 	}
 
+	private void startIntro(int level) {
+		Gdx.app.log("GameScreen", "In startIntro(), starting intro to battle");
+
+		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("START_INTRO");
+
+		GameEventStartIntro gameEventStartIntro = new GameEventStartIntro(gameEventTypeIndex);
+
+		gameEventStartIntro.Level = 1;
+		gameEventStartIntro.setStage(this._gameScreenStage);
+		gameEventStartIntro.setListenerActor(_katniss);
+
+		this._gameEventManager.broadcastEvent(gameEventStartIntro);
+
+	}
+
+	public void startBattle() {
+		// TODO: broadcast from here
+
+	}
+
+	/* 
+	* 
+	*/
 	private void loadActors() {
 		Gdx.app.log("GameScreen", "In loadActors(), ");
 
+		Image battleScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene));
+
 		_katniss = new Player(this._assetManager.get(RevisitingHorrorAssetDescriptor.player),
-				RevisitingHorrorAssetDescriptor.player.fileName);
+				RevisitingHorrorAssetDescriptor.player.fileName, this._gameEventManager);
 		_katniss.spritePosition(100, 200);
 //		
 		this._cato = new Opponent(this._assetManager.get(RevisitingHorrorAssetDescriptor.opponent),
-				RevisitingHorrorAssetDescriptor.opponent.fileName);
-		this._cato.spritePosition(1500, 200);
+				RevisitingHorrorAssetDescriptor.opponent.fileName, this._gameEventManager);
+		this._cato.spritePosition(500, 200);
 
+		// add tags for easier referencing
+		battleScene.setName("battleScene");
+		_katniss.setName("katniss");
+		this._cato.setName("cato");
+
+		// this order matters
+		// z-order (who gets drawn first. based on who is added before the other
+		this._gameScreenStage.addActor(battleScene);
 		this._gameScreenStage.addActor(this._katniss);
 		this._gameScreenStage.addActor(this._cato);
-		
+
 		// !! this is crucial for scene2D to know player event handling
 		// needs to be aware
 		this._gameScreenStage.setKeyboardFocus(this._katniss);
@@ -202,9 +227,7 @@ public class GameScreen implements Screen {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.player);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.opponent);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.battleScene);
-		
+
 		this._assetManager.finishLoading();
 	}
-	
-	
 }
