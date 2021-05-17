@@ -12,7 +12,8 @@ public class GameEventManager {
 
 	/************* CONSTRUCTORS *****************/
 	public GameEventManager() {
-		GameEventTypes = new String[] { "START_INTRO", "START_BATTLE" };
+		GameEventTypes = new String[] { "COUNT_DOWN_1", "COUNT_DOWN_2", "COUNT_DOWN_3", "COUNT_DOWN_4", "COUNT_DOWN_5",
+				"START_INTRO", "START_BATTLE" };
 	}
 
 	/************* METHODS *****************/
@@ -56,11 +57,18 @@ public class GameEventManager {
 
 		for (int counter = 0; counter < this._gameEventListeners.size(); counter++) {
 			if (gameEvent.getGameEventType() == this._gameEventListeners.get(counter).getGameEventType()) {
-				Gdx.app.log("GameEventManager", String.format(
-						"In broadcastEvent(), dispatching event notification for: %s.", this._gameEventListeners.get(counter).getClass().toString()));
-				
+				Gdx.app.log("GameEventManager",
+						String.format("In broadcastEvent(), dispatching event notification for: %s.",
+								this._gameEventListeners.get(counter).getClass().toString()));
+
 				this._gameEventListeners.get(counter).onEvent(gameEvent);
 			}
+		}
+
+		if (gameEvent.isHandled() == true) {
+			Gdx.app.log("GameEventManager", "In broadcastEvent(), event handled.  Now, stopping event");
+
+			gameEvent.stop();
 		}
 	}
 	/************* END: METHODS *****************/

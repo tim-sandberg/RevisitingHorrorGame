@@ -95,6 +95,17 @@ public class Player extends Actor implements GameEventListener {
 		this._rightMove = isRightMove;
 	}
 
+	@Override
+	public String getGameEventType() {
+		return this._gameEventType;
+	}
+
+	@Override
+	public void setGameEventType(int gameEventTypeIndex) {
+		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
+
+	}
+
 	// ****** END: members *************
 
 	// ******* constructor ***********
@@ -217,7 +228,7 @@ public class Player extends Actor implements GameEventListener {
 	@Override
 	public boolean handle(Event event) {
 		Gdx.app.log("Player", String.format("In handle(), %s ", event.getClass().toString()));
-		
+
 		return false;
 	}
 
@@ -230,23 +241,12 @@ public class Player extends Actor implements GameEventListener {
 	public void onEvent(GameEventAbstract gameEvent) {
 		Gdx.app.log("Player", String.format("In onEvent(), event: %s occurred.", gameEvent.getGameEventType()));
 
-		if (gameEvent.getGameEventType() == Arrays.asList(GameEventManager.GameEventTypes).get(0)) {
+		if (gameEvent.getGameEventType() == "START_INTRO") {
 			Gdx.app.log("Player", String.format("In onEvent(), event: %s occurred. startIntro() will execute now.",
 					gameEvent.getGameEventType()));
 
 			this.startIntro(1);
 		}
-
-	}
-	
-	@Override
-	public String getGameEventType() {
-		return this._gameEventType;
-	}
-
-	@Override
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
 
 	}
 
