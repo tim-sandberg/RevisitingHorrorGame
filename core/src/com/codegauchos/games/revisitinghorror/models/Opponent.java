@@ -1,15 +1,19 @@
 package com.codegauchos.games.revisitinghorror.models;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+
 import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.GameEventListener;
 import com.codegauchos.games.revisitinghorror.events.GameEventManager;
@@ -20,6 +24,8 @@ public class Opponent extends Actor implements GameEventListener {
 	private GameEventManager _gameEventManager;
 	private String _gameEventType;
 	private Sprite _sprite;
+	private float _deltaX;
+	private boolean _canWalkOut;
 
 	// ****** members *************
 	@Override
@@ -32,7 +38,7 @@ public class Opponent extends Actor implements GameEventListener {
 		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
 
 	}
-	
+
 	public int getAgro() {
 		return _agro;
 	}
@@ -48,6 +54,15 @@ public class Opponent extends Actor implements GameEventListener {
 	public void setSprite(Sprite sprite) {
 		this._sprite = sprite;
 	}
+
+	public float getDeltaX() {
+		return _deltaX;
+	}
+
+	public void setDeltaX(float speed) {
+		this._deltaX = speed;
+	}
+
 	// ****** END: members *************
 
 	// ******************** CONSTRUCTORS ***********
@@ -61,6 +76,21 @@ public class Opponent extends Actor implements GameEventListener {
 	@Override
 	public void act(float delta) {
 		super.act(Gdx.graphics.getDeltaTime());
+
+//		for (Iterator<Action> iter = this.getActions().iterator(); iter.hasNext();) {
+//			Gdx.app.log("Opponent", "In act(), doing the action, now");
+//			iter.next().act(delta);
+//		}
+
+		if (this._canWalkOut == true && this._gameEventManager.IsCountDownDone == true) {
+			this.spritePosition(this.getX() - this.getDeltaX(), this.getY());
+
+			if (this.getX() <= 900) {
+				this._canWalkOut = false;
+
+				Gdx.app.debug("Opponent", String.format("Done with the walk out. X position: %f", this.getX()));
+			}
+		}
 	}
 
 	@Override
@@ -76,6 +106,9 @@ public class Opponent extends Actor implements GameEventListener {
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
+		// set player horizontal movement speed
+		this.setDeltaX(1.0f);
+
 		this.setSprite(new Sprite(texture));
 
 		this.spritePosition(this.getSprite().getX(), this.getSprite().getY());
@@ -87,7 +120,9 @@ public class Opponent extends Actor implements GameEventListener {
 
 		this._gameEventManager = gameEventManager;
 
+		this._canWalkOut = true;
 
+//		this.walkOut();
 	}
 
 	private void addEventHandlers(String actorName) {
@@ -97,10 +132,12 @@ public class Opponent extends Actor implements GameEventListener {
 	}
 
 	public void walkOut() {
-		MoveByAction pacing = new MoveByAction();
-		pacing.setAmount(-300f, 0f);
-		pacing.setDuration(60000000f);
-		Opponent.this.addAction(pacing);
+		Gdx.app.log("Opponent", "In walkout(), ");
+
+//		MoveByAction pacing = new MoveByAction();
+//		pacing.setAmount(-500f, 0f);
+//		pacing.setDuration(0.4f);
+//		Opponent.this.addAction(pacing);
 
 	}
 
@@ -111,7 +148,6 @@ public class Opponent extends Actor implements GameEventListener {
 
 	public void startIntro(int level) {
 		Gdx.app.log("Opponent", "In startIntro(), for level: " + level);
-		this.walkOut();
 	}
 
 	/************ EVENT HANDLERS ************************/
@@ -130,6 +166,5 @@ public class Opponent extends Actor implements GameEventListener {
 	}
 
 	/************ END: EVENT HANDLERS **************/
-
 
 }

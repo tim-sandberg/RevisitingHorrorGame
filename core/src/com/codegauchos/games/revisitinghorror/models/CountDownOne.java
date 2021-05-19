@@ -68,6 +68,7 @@ public class CountDownOne extends Image implements GameEventListener {
 //
 //		// 2. broadcast the event
 //		this._gameEventManager.broadcastEvent(gameEventCountDown);
+		this._gameEventManager.IsCountDownDone = true;
 
 		return true;
 

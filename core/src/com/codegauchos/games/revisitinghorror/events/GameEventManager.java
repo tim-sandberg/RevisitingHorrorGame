@@ -9,6 +9,7 @@ public class GameEventManager {
 	/************* FIELDS *****************/
 	private ArrayList<GameEventListener> _gameEventListeners = new ArrayList<GameEventListener>();
 	public static String[] GameEventTypes;
+	public boolean IsCountDownDone = false;
 
 	/************* CONSTRUCTORS *****************/
 	public GameEventManager() {
