@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
+import com.codegauchos.games.revisitinghorror.assetmanager.Asset;
 import com.codegauchos.games.revisitinghorror.assetmanager.RevisitingHorrorAssetDescriptor;
 import com.codegauchos.games.revisitinghorror.events.GameEventCountDown;
 import com.codegauchos.games.revisitinghorror.events.GameEventManager;
@@ -37,6 +39,7 @@ public class GameScreen implements Screen {
 	// fields are here ( because they are private -- exclusively accessed
 	// in this class!
 	private final AssetManager _assetManager;
+	private Music _battleMusic;
 	private Opponent _cato;
 	private CountDownFive _countDownFive;
 	private CountDownFour _countDownFour;
@@ -47,7 +50,9 @@ public class GameScreen implements Screen {
 	private GameEventManager _gameEventManager;
 	private Player _katniss;
 	private final RevisitingHorror _revisitingHorrorGame;
+	private boolean _startBattleMusic;
 	private boolean _startCountDown;
+
 	/**
 	 * The Stage class has a camera, SpriteBatch, and a root group and handles
 	 * drawing the actors and distributing input events.
@@ -57,6 +62,8 @@ public class GameScreen implements Screen {
 
 	// ***** CONSTRUCTORS ********************
 	public GameScreen(final RevisitingHorror revisitingHorrorGame) {
+		this._startBattleMusic = false;
+
 		this._startCountDown = true;
 
 		this._assetManager = new AssetManager();
@@ -98,8 +105,11 @@ public class GameScreen implements Screen {
 			this.startCountdown(1);
 		}
 
-		if (this._gameEventManager.IsCountDownDone == true) {
+		if (this._startBattleMusic == false && this._gameEventManager.IsCountDownDone == true) {
 //			Gdx.app.debug("GameScreen", "Countdown is done.");
+			this._startBattleMusic = true;
+
+			playBattleMusic();
 		}
 
 		// like update, any movement can be handled at this time
@@ -178,7 +188,18 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		this._battleMusic.dispose();
 		this._gameScreenStage.dispose();
+	}
+
+	/**
+	 * Reference: 
+	 * https://github.com/libgdx/libgdx/wiki/Streaming-music
+	 */
+	private void playBattleMusic() {
+		this._battleMusic = Gdx.audio.newMusic(Gdx.files.internal(Asset.BATTLE_MUSIC_1));
+
+		this._battleMusic.play();
 	}
 
 	private void startCountdown(int level) {
@@ -258,7 +279,7 @@ public class GameScreen implements Screen {
 		battleScene.setName("battleScene");
 		_katniss.setName("katniss");
 		this._cato.setName("cato");
-		
+
 		// this order matters
 		// z-order (who gets drawn first. based on who is added before the other
 		this._gameScreenStage.addActor(battleScene);

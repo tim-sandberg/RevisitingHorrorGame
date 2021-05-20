@@ -18,6 +18,9 @@ public class Asset {
 	public static final String THREE = "images/three.png";
 	public static final String TWO = "images/two.png";
 	
+	// music 
+	public static final String BATTLE_MUSIC_1 = "sounds/rpg-battle-loop-1.wav";
+	
 	private Asset() {
 
 	}
