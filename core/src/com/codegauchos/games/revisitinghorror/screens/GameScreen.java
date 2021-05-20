@@ -195,6 +195,8 @@ public class GameScreen implements Screen {
 	/**
 	 * Reference: 
 	 * https://github.com/libgdx/libgdx/wiki/Streaming-music
+	 * 
+	 * https://freesound.org/people/Sirkoto51/sounds/338817/
 	 */
 	private void playBattleMusic() {
 		this._battleMusic = Gdx.audio.newMusic(Gdx.files.internal(Asset.BATTLE_MUSIC_1));
