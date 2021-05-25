@@ -210,11 +210,11 @@ public class Player extends Actor implements GameEventListener {
 	 */
 	private void handleMovement(int keyCode) {
 		// 'd'
-		if (keyCode == Input.Keys.D || keyCode == Input.Keys.LEFT) {
+		if (keyCode == Input.Keys.D || keyCode == Input.Keys.RIGHT) {
 			Gdx.app.log("Player", "In HandleMovement(), move player to the right");
 
 			this.setRightMove(true);
-		} else if (keyCode == Input.Keys.A || keyCode == Input.Keys.RIGHT) {
+		} else if (keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT) {
 			Gdx.app.log("Player", "In HandleMovement(), move player to the left");
 
 			this.setLeftMove(true);

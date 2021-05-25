@@ -119,7 +119,7 @@ public class GameScreen implements Screen {
 		this._gameScreenStage.getBatch().begin();
 
 		// Reference: https://www.codinginsights.blog/libgdx-assetmanager/
-		Texture battleSceneBackground = (Texture) this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene);
+//		Texture battleSceneBackground = (Texture) this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene);
 
 //	When blending is disabled, anything already on the screen at that location 
 //	is replaced by the texture. This is more efficient, so blending should always
@@ -201,6 +201,7 @@ public class GameScreen implements Screen {
 	private void playBattleMusic() {
 		this._battleMusic = Gdx.audio.newMusic(Gdx.files.internal(Asset.BATTLE_MUSIC_1));
 
+		this._battleMusic.setVolume(0.15f);
 		this._battleMusic.play();
 	}
 
@@ -275,7 +276,7 @@ public class GameScreen implements Screen {
 //		
 		this._cato = new Opponent(this._assetManager.get(RevisitingHorrorAssetDescriptor.opponent),
 				RevisitingHorrorAssetDescriptor.opponent.fileName, this._gameEventManager);
-		this._cato.spritePosition(1950, 200);
+		this._cato.spritePosition(1100, 200);
 
 		// add tags for easier referencing
 		battleScene.setName("battleScene");

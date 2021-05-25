@@ -22,8 +22,8 @@ public class RevisitingHorror extends Game {
 	public BitmapFont horrorTitleFont;
 
 	// COMMENT: constants
-	public static final int SCREEN_WIDTH = 1920;
-	public static final int SCREEN_HEIGHT = 1080;
+	public static final int SCREEN_WIDTH = 1024;
+	public static final int SCREEN_HEIGHT = 768;
 
 	// Members (getters and setters) here
 	public SpriteBatch getSpriteBatch() {
