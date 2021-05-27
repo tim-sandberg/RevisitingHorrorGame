@@ -14,7 +14,7 @@ public class GameEventManager {
 	/************* CONSTRUCTORS *****************/
 	public GameEventManager() {
 		GameEventTypes = new String[] { "COUNT_DOWN_1", "COUNT_DOWN_2", "COUNT_DOWN_3", "COUNT_DOWN_4", "COUNT_DOWN_5",
-				"START_INTRO", "START_BATTLE" };
+				"START_INTRO", "PREPARE_TO_ATTACK", "START_BATTLE" };
 	}
 
 	/************* METHODS *****************/

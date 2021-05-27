@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.GameEventListener;
 import com.codegauchos.games.revisitinghorror.events.GameEventManager;
-import com.codegauchos.games.revisitinghorror.events.GameEventStartIntro;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventStartIntro;
 
 public class Player extends Actor implements GameEventListener {
 	// ****** fields *************

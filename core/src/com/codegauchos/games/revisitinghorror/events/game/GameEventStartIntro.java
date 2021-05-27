@@ -1,4 +1,6 @@
-package com.codegauchos.games.revisitinghorror.events;
+package com.codegauchos.games.revisitinghorror.events.game;
+
+import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
 
 /**
  * In this class, place any information related to the 
