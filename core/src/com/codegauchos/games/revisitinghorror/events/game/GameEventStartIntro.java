@@ -1,7 +1,5 @@
 package com.codegauchos.games.revisitinghorror.events.game;
 
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-
 /**
  * In this class, place any information related to the 
  * event, that you want to pass on
@@ -13,10 +11,10 @@ public class GameEventStartIntro extends GameEventAbstract {
 
 	/**
 	 * 
-	 * @param gameEventTypeIndex
+	 * @param gameEventType
 	 */
-	public GameEventStartIntro(int gameEventTypeIndex) {
-		super(gameEventTypeIndex);
+	public GameEventStartIntro(String gameEventType) {
+		super(gameEventType);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,33 +1,23 @@
 package com.codegauchos.games.revisitinghorror.models.ui;
 
-import java.util.Arrays;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-import com.codegauchos.games.revisitinghorror.events.GameEventListener;
-import com.codegauchos.games.revisitinghorror.events.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
+import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
-public class CountDownTwo extends Image implements GameEventListener {
+public class CountDownTwo extends ImageBase {
 	private GameEventManager _gameEventManager;
-	private String _gameEventType;
-	private GameEventAbstract _countDownEvent;
+	private GameEventAbstract _countDownTwoEvent;
 	private float _scaleCounter = 0.02f;
 
-	@Override
 	public String getGameEventType() {
-		return this._gameEventType;
+		return "COUNT_DOWN_2";
 	}
 
-	@Override
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
-
-	}
 
 	public CountDownTwo(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
@@ -44,12 +34,12 @@ public class CountDownTwo extends Image implements GameEventListener {
 		Gdx.app.log("CountDownTwo",
 				String.format("In onEvent(), event: %s occurred.", countDownEvent.getGameEventType()));
 
-		this._countDownEvent = countDownEvent;
+		this._countDownTwoEvent = countDownEvent;
 
-		if (this._countDownEvent.getGameEventType() == "COUNT_DOWN_2") {
+		if (this._countDownTwoEvent.getGameEventType() == "COUNT_DOWN_2") {
 			Gdx.app.log("CountDownTwo",
 					String.format("In onEvent(), event: %s occurred. doCountDown() will execute now.",
-							this._countDownEvent.getGameEventType()));
+							this._countDownTwoEvent.getGameEventType()));
 
 			this.doCountDown(countDownEvent);
 		}
@@ -60,10 +50,8 @@ public class CountDownTwo extends Image implements GameEventListener {
 	public boolean handle(Event event) {
 		Gdx.app.log("CountDownTwo", String.format("handled event: %s", event.getTarget()));
 
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("COUNT_DOWN_1");
-
 		// 1. instantiate the event
-		GameEventCountDown gameEventCountDown = new GameEventCountDown(gameEventTypeIndex);
+		GameEventCountDown gameEventCountDown = new GameEventCountDown(CountDownOne.GAME_EVENT_TYPE);
 		gameEventCountDown.Level = 1;
 		gameEventCountDown.setStage(this.getStage());
 
@@ -77,7 +65,7 @@ public class CountDownTwo extends Image implements GameEventListener {
 	private void addEventHandlers() {
 		Gdx.app.log("CountDownTwo", "addEventHandlers(), registering event handlers.");
 
-		this._gameEventManager.addEventListener(this);
+		this._gameEventManager.addImageEventListener(this);
 	}
 
 	/************ END: EVENT HANDLERS **************/
@@ -95,15 +83,14 @@ public class CountDownTwo extends Image implements GameEventListener {
 		} else if (this.isVisible() == true) {
 			this.setVisible(false);
 
-			this.handle(this._countDownEvent);
+			this.handle(this._countDownTwoEvent);
 		}
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("COUNT_DOWN_2");
-		this.setGameEventType(gameEventTypeIndex);
-
 		this._gameEventManager = gameEventManager;
+		
+		ImageBase.GAME_EVENT_TYPE = "COUNT_DOWN_2";
 	}
 
 	private void doCountDown(GameEventAbstract gameEvent) {

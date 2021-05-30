@@ -1,4 +1,4 @@
-package com.codegauchos.games.revisitinghorror.events;
+package com.codegauchos.games.revisitinghorror.events.game;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 
@@ -11,17 +11,18 @@ public abstract class GameEventAbstract extends Event {
 	public String getGameEventType() {
 		return _gameEventType;
 	}
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
+	
+	public void setGameEventType(String gameEventType) {
+		this._gameEventType = gameEventType;
 	}
 	
 	/*********** CONSTRUCTORS ******************/
 	/**
 	 * From GameEventManager.GameEventTypes;
 	 * 
-	 * @param gameEventTypeIndex
+	 * @param gameEventType
 	 */
-	public GameEventAbstract(int gameEventTypeIndex) {
-		this.setGameEventType(gameEventTypeIndex);
+	public GameEventAbstract(String gameEventType) {
+		this.setGameEventType(gameEventType);
 	}
 }

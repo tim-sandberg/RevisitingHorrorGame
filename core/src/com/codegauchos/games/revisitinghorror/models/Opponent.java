@@ -1,28 +1,20 @@
 package com.codegauchos.games.revisitinghorror.models;
 
 import java.util.Arrays;
-import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-import com.codegauchos.games.revisitinghorror.events.GameEventListener;
-import com.codegauchos.games.revisitinghorror.events.GameEventManager;
-
-public class Opponent extends Actor implements GameEventListener {
+public class Opponent extends CharacterBase {
 	// ****** fields *************
 	private int _agro;
 	private GameEventManager _gameEventManager;
-	private String _gameEventType;
 	private Sprite _sprite;
 	private float _deltaX;
 	private boolean _canWalkOut;
@@ -30,13 +22,7 @@ public class Opponent extends Actor implements GameEventListener {
 	// ****** members *************
 	@Override
 	public String getGameEventType() {
-		return this._gameEventType;
-	}
-
-	@Override
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
-
+		return "START_INTRO";
 	}
 
 	public int getAgro() {
@@ -89,6 +75,8 @@ public class Opponent extends Actor implements GameEventListener {
 				this._canWalkOut = false;
 
 				Gdx.app.debug("Opponent", String.format("Done with the walk out. X position: %f", this.getX()));
+
+				// do first blood calculation
 			}
 		}
 	}
@@ -106,6 +94,8 @@ public class Opponent extends Actor implements GameEventListener {
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
+		CharacterBase.GAME_EVENT_TYPE = "START_INTRO";
+
 		// set player horizontal movement speed
 		this.setDeltaX(1.0f);
 
@@ -114,9 +104,6 @@ public class Opponent extends Actor implements GameEventListener {
 		this.spritePosition(this.getSprite().getX(), this.getSprite().getY());
 
 		this.setTouchable(Touchable.enabled);
-
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("START_INTRO");
-		this.setGameEventType(gameEventTypeIndex);
 
 		this._gameEventManager = gameEventManager;
 
@@ -127,7 +114,7 @@ public class Opponent extends Actor implements GameEventListener {
 
 	private void addEventHandlers(String actorName) {
 
-		this._gameEventManager.addEventListener(this);
+		this._gameEventManager.addCharacterEventListener(this);
 
 	}
 

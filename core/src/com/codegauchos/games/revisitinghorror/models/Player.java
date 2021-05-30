@@ -1,29 +1,23 @@
 package com.codegauchos.games.revisitinghorror.models;
 
-import java.util.Arrays;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-import com.codegauchos.games.revisitinghorror.events.GameEventListener;
-import com.codegauchos.games.revisitinghorror.events.GameEventManager;
-import com.codegauchos.games.revisitinghorror.events.game.GameEventStartIntro;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 
-public class Player extends Actor implements GameEventListener {
+public class Player extends CharacterBase {
 	// ****** fields *************
 	private String _hairColor;
 	private int _agility;
 	private int _defense;
 	private GameEventManager _gameEventManager;
-	private String _gameEventType;
 	private boolean _leftMove;
 	private boolean _rightMove;
 	private Sprite _sprite;
@@ -97,15 +91,8 @@ public class Player extends Actor implements GameEventListener {
 
 	@Override
 	public String getGameEventType() {
-		return this._gameEventType;
+		return "START_INTRO";
 	}
-
-	@Override
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
-
-	}
-
 	// ****** END: members *************
 
 	// ******* constructor ***********
@@ -151,6 +138,9 @@ public class Player extends Actor implements GameEventListener {
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
+
+		CharacterBase.GAME_EVENT_TYPE = "START_INTRO";
+
 		// set player horizontal movement speed
 		this.setDeltaX(100f);
 
@@ -159,9 +149,6 @@ public class Player extends Actor implements GameEventListener {
 		this.spritePosition(this.getSprite().getX(), this.getSprite().getY());
 
 		this.setTouchable(Touchable.enabled);
-
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("START_INTRO");
-		this.setGameEventType(gameEventTypeIndex);
 
 		this._gameEventManager = gameEventManager;
 	}
@@ -199,7 +186,7 @@ public class Player extends Actor implements GameEventListener {
 			}
 		});
 
-		this._gameEventManager.addEventListener(this);
+		this._gameEventManager.addCharacterEventListener(this);
 	}
 
 	/**

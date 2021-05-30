@@ -1,11 +1,9 @@
 package com.codegauchos.games.revisitinghorror.events.game;
 
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-
 public class GameEventPrepareToAttack extends GameEventAbstract {
 
-	public GameEventPrepareToAttack(int gameEventTypeIndex) {
-		super(gameEventTypeIndex);
+	public GameEventPrepareToAttack(String gameEventType) {
+		super(gameEventType);
 		// TODO Auto-generated constructor stub
 	}
 

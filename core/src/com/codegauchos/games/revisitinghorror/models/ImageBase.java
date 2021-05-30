@@ -1,18 +1,18 @@
 package com.codegauchos.games.revisitinghorror.models;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventListener;
 
 /**
- * Reference: The Actor class is a node in the graph which has a position,
- * rectangular size, origin, scale, rotation, and color
+ * Reference:
  * 
  * @author tim
  *
  */
-public class CharacterBase extends Actor implements GameEventListener {
+public class ImageBase extends Image implements GameEventListener {
 	/**
 	 * static member
 	 * 
@@ -27,7 +27,7 @@ public class CharacterBase extends Actor implements GameEventListener {
 	@Override
 	public void onEvent(GameEventAbstract gameEvent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -35,4 +35,9 @@ public class CharacterBase extends Actor implements GameEventListener {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public ImageBase(Texture texture) {
+		super(texture);
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.codegauchos.games.revisitinghorror.events;
+package com.codegauchos.games.revisitinghorror.events.opponent;
 
 public interface OpponentEventListener {
 	/**

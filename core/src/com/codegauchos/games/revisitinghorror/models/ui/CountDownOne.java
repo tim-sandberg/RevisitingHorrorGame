@@ -1,33 +1,25 @@
 package com.codegauchos.games.revisitinghorror.models.ui;
 
-import java.util.Arrays;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-import com.codegauchos.games.revisitinghorror.events.GameEventListener;
-import com.codegauchos.games.revisitinghorror.events.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
+import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
-public class CountDownOne extends Image implements GameEventListener {
+public class CountDownOne extends ImageBase {
 	private GameEventManager _gameEventManager;
-	private String _gameEventType;
 	private GameEventAbstract _countDownEvent;
 	private float _scaleCounter = 0.02f;
 
 	@Override
 	public String getGameEventType() {
-		return this._gameEventType;
+		return "COUNT_DOWN_1";
 	}
 
-	@Override
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
-
-	}
-
+	public String GameEventType = getGameEventType();
+	
 	public CountDownOne(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 
@@ -77,7 +69,7 @@ public class CountDownOne extends Image implements GameEventListener {
 	private void addEventHandlers() {
 		Gdx.app.log("CountDownOne", "addEventHandlers(), registering event handlers.");
 
-		this._gameEventManager.addEventListener(this);
+		this._gameEventManager.addImageEventListener(this);
 	}
 
 	/************ END: EVENT HANDLERS **************/
@@ -100,10 +92,9 @@ public class CountDownOne extends Image implements GameEventListener {
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("COUNT_DOWN_1");
-		this.setGameEventType(gameEventTypeIndex);
-
 		this._gameEventManager = gameEventManager;
+		
+		ImageBase.GAME_EVENT_TYPE = "COUNT_DOWN_1";
 	}
 
 	private void doCountDown(GameEventAbstract gameEvent) {

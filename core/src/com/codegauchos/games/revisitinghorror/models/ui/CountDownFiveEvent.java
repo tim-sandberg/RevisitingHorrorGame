@@ -1,24 +1,25 @@
 package com.codegauchos.games.revisitinghorror.models.ui;
 
-import java.util.Arrays;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
-import com.codegauchos.games.revisitinghorror.events.GameEventAbstract;
-import com.codegauchos.games.revisitinghorror.events.GameEventListener;
-import com.codegauchos.games.revisitinghorror.events.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
+import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
-public class CountDownFive extends Image implements GameEventListener {
-	private GameEventAbstract _countDownEvent;
+public class CountDownFiveEvent extends ImageBase {
 	private GameEventManager _gameEventManager;
-	private String _gameEventType;
+	private GameEventAbstract _countDownFiveEvent;
 	private float _scaleCounter = 0.05f;
 
-	public CountDownFive(Texture texture, GameEventManager gameEventManager) {
+	@Override
+	public String getGameEventType() {
+		return "COUNT_DOWN_5";
+	}
+	
+	public CountDownFiveEvent(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 
 		this.initialize(texture, gameEventManager);
@@ -27,23 +28,12 @@ public class CountDownFive extends Image implements GameEventListener {
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("COUNT_DOWN_5");
-		this.setGameEventType(gameEventTypeIndex);
-
 		this._gameEventManager = gameEventManager;
+		
+		ImageBase.GAME_EVENT_TYPE = "COUNT_DOWN_5";
 	}
 
-	@Override
-	public String getGameEventType() {
-		return this._gameEventType;
-	}
-
-	@Override
-	public void setGameEventType(int gameEventTypeIndex) {
-		this._gameEventType = GameEventManager.GameEventTypes[gameEventTypeIndex];
-
-	}
-
+	
 	/************ EVENT HANDLERS **************/
 
 	@Override
@@ -51,39 +41,40 @@ public class CountDownFive extends Image implements GameEventListener {
 		Gdx.app.log("CountDownFive",
 				String.format("In onEvent(), event: %s occurred.", countDownEvent.getGameEventType()));
 
-		this._countDownEvent = countDownEvent;
+		if (countDownEvent.getGameEventType() == getGameEventType()) {
+			Gdx.app.log("CountDownFive", String.format(
+					"In onEvent(), event: %s occurred. doCountDown() will execute now.", getGameEventType()));
 
-		if (this._countDownEvent.getGameEventType() == "COUNT_DOWN_5") {
-			Gdx.app.log("CountDownFive",
-					String.format("In onEvent(), event: %s occurred. doCountDown() will execute now.",
-							this._countDownEvent.getGameEventType()));
-
+			this._countDownFiveEvent = countDownEvent;
+			
 			this.doCountDown(countDownEvent);
 		}
 
 	}
 
+	/**
+	 * 1. broadcasting for the next event (CountDownFour)
+	 * 2. Signaling this event is over
+	 */
 	@Override
 	public boolean handle(Event event) {
 		Gdx.app.log("CountDownFive", String.format("handled event: %s", event.getTarget()));
 
-		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("COUNT_DOWN_4");
-
 		// 1. instantiate the event
-		GameEventCountDown gameEventCountDown = new GameEventCountDown(gameEventTypeIndex);
+		GameEventCountDown gameEventCountDown = new GameEventCountDown(CountDownFour.GAME_EVENT_TYPE);
 		gameEventCountDown.Level = 1;
 		gameEventCountDown.setStage(this.getStage());
 
 		// 2. broadcast the event
 		this._gameEventManager.broadcastEvent(gameEventCountDown);
-		
+
 		return true;
 	}
 
 	private void addEventHandlers() {
 		Gdx.app.log("CountDownFive", "addEventHandlers(), registering event handlers.");
 
-		this._gameEventManager.addEventListener(this);
+		this._gameEventManager.addImageEventListener(this);
 	}
 
 	/************ END: EVENT HANDLERS **************/
@@ -101,7 +92,7 @@ public class CountDownFive extends Image implements GameEventListener {
 		} else if (this.isVisible() == true) {
 			this.setVisible(false);
 
-			this.handle(this._countDownEvent);
+			this.handle(this._countDownFiveEvent);
 		}
 	}
 
