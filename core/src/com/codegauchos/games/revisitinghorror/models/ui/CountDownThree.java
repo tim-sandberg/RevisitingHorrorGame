@@ -34,14 +34,14 @@ public class CountDownThree extends ImageBase {
 		Gdx.app.log("CountDownThree",
 				String.format("In onEvent(), event: %s occurred.", countDownEvent.getGameEventType()));
 
-		if (this._countDownThreeEvent.getGameEventType() == "COUNT_DOWN_3") {
+		if (this.getGameEventType() == countDownEvent.getGameEventType()) {
 			Gdx.app.log("CountDownThree",
 					String.format("In onEvent(), event: %s occurred. doCountDown() will execute now.",
-							this._countDownThreeEvent.getGameEventType()));
+							this.getGameEventType()));
 
 			this._countDownThreeEvent = countDownEvent;
 
-			this.doCountDown(countDownEvent);
+			this.doCountDown(this._countDownThreeEvent);
 		}
 
 	}
@@ -49,7 +49,9 @@ public class CountDownThree extends ImageBase {
 	@Override
 	public boolean handle(Event event) {
 		Gdx.app.log("CountDownThree", String.format("handled event: %s", event.getTarget()));
-
+		
+		CountDownTwo.GAME_EVENT_TYPE = "COUNT_DOWN_2";
+				
 		// 1. instantiate the event
 		GameEventCountDown gameEventCountDown = new GameEventCountDown(CountDownTwo.GAME_EVENT_TYPE);
 		gameEventCountDown.Level = 1;

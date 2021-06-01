@@ -9,7 +9,7 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
-public class CountDownFiveEvent extends ImageBase {
+public class CountDownFive extends ImageBase {
 	private GameEventManager _gameEventManager;
 	private GameEventAbstract _countDownFiveEvent;
 	private float _scaleCounter = 0.05f;
@@ -19,7 +19,7 @@ public class CountDownFiveEvent extends ImageBase {
 		return "COUNT_DOWN_5";
 	}
 	
-	public CountDownFiveEvent(Texture texture, GameEventManager gameEventManager) {
+	public CountDownFive(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 
 		this.initialize(texture, gameEventManager);
@@ -60,6 +60,8 @@ public class CountDownFiveEvent extends ImageBase {
 	public boolean handle(Event event) {
 		Gdx.app.log("CountDownFive", String.format("handled event: %s", event.getTarget()));
 
+		CountDownFour.GAME_EVENT_TYPE = "COUNT_DOWN_4";
+		
 		// 1. instantiate the event
 		GameEventCountDown gameEventCountDown = new GameEventCountDown(CountDownFour.GAME_EVENT_TYPE);
 		gameEventCountDown.Level = 1;

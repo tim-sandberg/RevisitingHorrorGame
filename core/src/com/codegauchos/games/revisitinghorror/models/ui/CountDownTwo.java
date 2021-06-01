@@ -18,7 +18,6 @@ public class CountDownTwo extends ImageBase {
 		return "COUNT_DOWN_2";
 	}
 
-
 	public CountDownTwo(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 
@@ -34,14 +33,12 @@ public class CountDownTwo extends ImageBase {
 		Gdx.app.log("CountDownTwo",
 				String.format("In onEvent(), event: %s occurred.", countDownEvent.getGameEventType()));
 
-		this._countDownTwoEvent = countDownEvent;
+		if (this.getGameEventType() == countDownEvent.getGameEventType()) {
+			Gdx.app.log("CountDownTwo", String.format(
+					"In onEvent(), event: %s occurred. doCountDown() will execute now.", this.getGameEventType()));
+			this._countDownTwoEvent = countDownEvent;
 
-		if (this._countDownTwoEvent.getGameEventType() == "COUNT_DOWN_2") {
-			Gdx.app.log("CountDownTwo",
-					String.format("In onEvent(), event: %s occurred. doCountDown() will execute now.",
-							this._countDownTwoEvent.getGameEventType()));
-
-			this.doCountDown(countDownEvent);
+			this.doCountDown(this._countDownTwoEvent);
 		}
 
 	}
@@ -50,6 +47,8 @@ public class CountDownTwo extends ImageBase {
 	public boolean handle(Event event) {
 		Gdx.app.log("CountDownTwo", String.format("handled event: %s", event.getTarget()));
 
+		CountDownOne.GAME_EVENT_TYPE = "COUNT_DOWN_1";
+
 		// 1. instantiate the event
 		GameEventCountDown gameEventCountDown = new GameEventCountDown(CountDownOne.GAME_EVENT_TYPE);
 		gameEventCountDown.Level = 1;
@@ -57,7 +56,7 @@ public class CountDownTwo extends ImageBase {
 
 		// 2. broadcast the event
 		this._gameEventManager.broadcastEvent(gameEventCountDown);
-		
+
 		return true;
 
 	}
@@ -89,7 +88,7 @@ public class CountDownTwo extends ImageBase {
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
 		this._gameEventManager = gameEventManager;
-		
+
 		ImageBase.GAME_EVENT_TYPE = "COUNT_DOWN_2";
 	}
 

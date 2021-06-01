@@ -18,7 +18,7 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventPrepareToAtta
 import com.codegauchos.games.revisitinghorror.events.game.GameEventStartIntro;
 import com.codegauchos.games.revisitinghorror.models.Opponent;
 import com.codegauchos.games.revisitinghorror.models.Player;
-import com.codegauchos.games.revisitinghorror.models.ui.CountDownFiveEvent;
+import com.codegauchos.games.revisitinghorror.models.ui.CountDownFive;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownFour;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownOne;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownThree;
@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
 	private final AssetManager _assetManager;
 	private Music _battleMusic;
 	private Opponent _cato;
-	private CountDownFiveEvent _countDownFive;
+	private CountDownFive _countDownFive;
 	private CountDownFour _countDownFour;
 	private CountDownOne _countDownOne;
 	private CountDownThree _countDownThree;
@@ -228,7 +228,12 @@ public class GameScreen implements Screen {
 	private void loadActors() {
 		Gdx.app.log("GameScreen", "In loadActors(), ");
 
+		// **************************** this order matters!! **************************************
 		Image battleScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene));
+
+		this._prepareToAttack = new PrepareToAttack(
+				this._assetManager.get(RevisitingHorrorAssetDescriptor.prepareToAttack), this._gameEventManager);
+		this._prepareToAttack.setVisible(false);
 		
 		this._countDownOne = new CountDownOne(this._assetManager.get(RevisitingHorrorAssetDescriptor.one),
 				this._gameEventManager);
@@ -242,18 +247,18 @@ public class GameScreen implements Screen {
 				this._gameEventManager);
 		this._countDownThree.setVisible(false);
 
-		this._countDownFour = new CountDownFour(this._assetManager.get(RevisitingHorrorAssetDescriptor.four),
-				this._gameEventManager);
-		this._countDownFour.setVisible(false);
-
-		this._countDownFive = new CountDownFiveEvent(this._assetManager.get(RevisitingHorrorAssetDescriptor.five),
+		this._countDownFive = new CountDownFive(this._assetManager.get(RevisitingHorrorAssetDescriptor.five),
 				this._gameEventManager);
 		this._countDownFive.setVisible(false);
 
-		this._prepareToAttack = new PrepareToAttack(
-				this._assetManager.get(RevisitingHorrorAssetDescriptor.prepareToAttack), this._gameEventManager);
-		this._prepareToAttack.setVisible(false);
+		this._countDownFour = new CountDownFour(this._assetManager.get(RevisitingHorrorAssetDescriptor.four),
+				this._gameEventManager);
+		this._countDownFour.setVisible(false);
+		
+		// to get the countdown right, the base clase GAME_EVENT_TYPE needs to be modified
+		// **************************** END: this order matters!! **************************************
 
+		
 		this._katniss = new Player(this._assetManager.get(RevisitingHorrorAssetDescriptor.player),
 				RevisitingHorrorAssetDescriptor.player.fileName, this._gameEventManager);
 		this._katniss.spritePosition(100, 200);
