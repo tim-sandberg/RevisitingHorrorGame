@@ -23,6 +23,7 @@ import com.codegauchos.games.revisitinghorror.models.ui.CountDownFour;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownOne;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownThree;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownTwo;
+import com.codegauchos.games.revisitinghorror.models.ui.OnDefense;
 import com.codegauchos.games.revisitinghorror.models.ui.PrepareToAttack;
 
 /**
@@ -50,6 +51,7 @@ public class GameScreen implements Screen {
 	private final RevisitingHorror _revisitingHorrorGame;
 	private boolean _startBattleMusic;
 	private boolean _startCountDown;
+	private int _playerAttackFactor = 0;
 
 	/**
 	 * The Stage class has a camera, SpriteBatch, and a root group and handles
@@ -57,6 +59,7 @@ public class GameScreen implements Screen {
 	 */
 	private Stage _gameScreenStage;
 	private Viewport _viewport;
+	private OnDefense _onDefense;
 
 	// ***** CONSTRUCTORS ********************
 	public GameScreen(final RevisitingHorror revisitingHorrorGame) {
@@ -212,14 +215,29 @@ public class GameScreen implements Screen {
 
 	}
 
+	/**
+	 * player is either in attack mode or on defense
+	 */
 	private void priortizeAttack() {
 		Gdx.app.log("GameScreen", "In startCountdown(), showing 'Prepare To Attack' message.");
 
-		// 1. instantiate the event
-		this._gameEventPrepareToAttack = new GameEventPrepareToAttack(this._prepareToAttack.getGameEventType());
+		// 1. roll dice to calculate who goes first
+		int playerDice = (int) (Math.random() * 100);
 
-		// 2. do broadcast
-		this._gameEventManager.broadcastEvent(_gameEventPrepareToAttack);
+		if (playerDice + this._playerAttackFactor > 49) {
+			// 1. instantiate the event
+			this._gameEventPrepareToAttack = new GameEventPrepareToAttack(this._prepareToAttack.getGameEventType());
+
+			// 2. do broadcast
+			this._gameEventManager.broadcastEvent(_gameEventPrepareToAttack);
+		} else {
+			// 1. instantiate the event
+//			this._gameEventPrepareToAttack = new GameEventPrepareToAttack(this._prepareToAttack.getGameEventType());
+
+			// 2. do broadcast
+//			this._gameEventManager.broadcastEvent(_gameEventPrepareToAttack);
+
+		}
 	}
 
 	/*
@@ -228,13 +246,18 @@ public class GameScreen implements Screen {
 	private void loadActors() {
 		Gdx.app.log("GameScreen", "In loadActors(), ");
 
-		// **************************** this order matters!! **************************************
+		// **************************** this order matters!!
+		// **************************************
 		Image battleScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene));
+
+		this._onDefense = new OnDefense(this._assetManager.get(RevisitingHorrorAssetDescriptor.onDefense),
+				this._gameEventManager);
+		this._onDefense.setVisible(false);
 
 		this._prepareToAttack = new PrepareToAttack(
 				this._assetManager.get(RevisitingHorrorAssetDescriptor.prepareToAttack), this._gameEventManager);
 		this._prepareToAttack.setVisible(false);
-		
+
 		this._countDownOne = new CountDownOne(this._assetManager.get(RevisitingHorrorAssetDescriptor.one),
 				this._gameEventManager);
 		this._countDownOne.setVisible(false);
@@ -254,11 +277,12 @@ public class GameScreen implements Screen {
 		this._countDownFour = new CountDownFour(this._assetManager.get(RevisitingHorrorAssetDescriptor.four),
 				this._gameEventManager);
 		this._countDownFour.setVisible(false);
-		
-		// to get the countdown right, the base clase GAME_EVENT_TYPE needs to be modified
-		// **************************** END: this order matters!! **************************************
 
-		
+		// to get the countdown right, the base clase GAME_EVENT_TYPE needs to be
+		// modified
+		// **************************** END: this order matters!!
+		// **************************************
+
 		this._katniss = new Player(this._assetManager.get(RevisitingHorrorAssetDescriptor.player),
 				RevisitingHorrorAssetDescriptor.player.fileName, this._gameEventManager);
 		this._katniss.spritePosition(100, 200);
@@ -299,6 +323,7 @@ public class GameScreen implements Screen {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.two);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.one);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.prepareToAttack);
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.onDefense);
 
 		this._assetManager.finishLoading();
 	}

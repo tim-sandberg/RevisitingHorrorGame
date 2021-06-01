@@ -51,15 +51,6 @@ public class CountDownOne extends ImageBase {
 	public boolean handle(Event event) {
 		Gdx.app.log("CountDownOne", String.format("handled event: %s", event.getTarget()));
 
-//		int gameEventTypeIndex = Arrays.asList(GameEventManager.GameEventTypes).indexOf("COUNT_DOWN_1");
-//
-//		// 1. instantiate the event
-//		GameEventCountDown gameEventCountDown = new GameEventCountDown(gameEventTypeIndex);
-//		gameEventCountDown.Level = 1;
-//		gameEventCountDown.setStage(this.getStage());
-//
-//		// 2. broadcast the event
-//		this._gameEventManager.broadcastEvent(gameEventCountDown);
 		this._gameEventManager.IsCountDownDone = true;
 
 		return true;

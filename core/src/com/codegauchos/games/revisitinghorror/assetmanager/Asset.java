@@ -17,6 +17,7 @@ public class Asset {
 	public static final String PLAYER = "images/Katniss sprite.png";
 	public static final String THREE = "images/three.png";
 	public static final String TWO = "images/two.png";
+	public static final String ON_DEFENSE = "images/on defense.png";
 	public static final String PREPARE_TO_ATTACK = "images/prepare attack message.png";
 	// music 
 	public static final String BATTLE_MUSIC_1 = "sounds/rpg-battle-loop-1.wav";
