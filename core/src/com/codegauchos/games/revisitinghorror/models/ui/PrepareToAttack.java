@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventPlayerInventory;
 import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
 public class PrepareToAttack extends ImageBase {
 	private GameEventManager _gameEventManager;
+	private float _visibilityCounter = 0.0f;
 
 	public String getGameEventType() {
 
@@ -25,7 +27,17 @@ public class PrepareToAttack extends ImageBase {
 
 	@Override
 	public void act(float delta) {
+		if (this.isVisible() == true) {
+			this._visibilityCounter += delta;
 
+			Gdx.app.log("PrepareToAttack", "In act(), visibility counter: " + this._visibilityCounter);
+			
+			if (this._visibilityCounter > 10) {
+				this.setVisible(false);
+
+				this.handle(null);
+			}
+		}
 	}
 
 	/************ EVENT HANDLERS **************/
@@ -42,15 +54,22 @@ public class PrepareToAttack extends ImageBase {
 		}
 	}
 
+	/**
+	 * show the player inventory to setup the initial attack
+	 */
 	@Override
 	public boolean handle(Event event) {
-		// TODO Auto-generated method stub
-		return false;
+		GameEventPlayerInventory gameEventPlayerInventory = new GameEventPlayerInventory("PLAYER_INVENTORY", true);
+		gameEventPlayerInventory.Level = 1;
+		
+		this._gameEventManager.broadcastEvent(gameEventPlayerInventory);
+
+		return true;
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
 		this._gameEventManager = gameEventManager;
-		
+
 		ImageBase.GAME_EVENT_TYPE = "PREPARE_TO_ATTACK";
 	}
 

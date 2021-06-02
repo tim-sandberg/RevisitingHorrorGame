@@ -9,6 +9,7 @@ import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
 public class OnDefense extends ImageBase {
 	private GameEventManager _gameEventManager;
+	private float _visibilityCounter = 0.0f;
 
 	public String getGameEventType() {
 
@@ -25,6 +26,16 @@ public class OnDefense extends ImageBase {
 
 	@Override
 	public void act(float delta) {
+		if (this.isVisible() == true) {
+			this._visibilityCounter += delta;
+
+			Gdx.app.log("OnDefense", "In act(), visibility counter: " + this._visibilityCounter);
+
+			if (this._visibilityCounter > 10) {
+				this.setVisible(false);
+
+			}
+		}
 
 	}
 
@@ -32,12 +43,11 @@ public class OnDefense extends ImageBase {
 
 	@Override
 	public void onEvent(GameEventAbstract onDefenseEvent) {
-		Gdx.app.log("OnDefense",
-				String.format("In onEvent(), event: %s occurred.", onDefenseEvent.getGameEventType()));
+		Gdx.app.log("OnDefense", String.format("In onEvent(), event: %s occurred.", onDefenseEvent.getGameEventType()));
 
 		if (this.getGameEventType() == onDefenseEvent.getGameEventType()) {
-			Gdx.app.log("OnDefense", String.format(
-					"In onEvent(), event: %s occurred. will make image visible.", this.getGameEventType()));
+			Gdx.app.log("OnDefense", String.format("In onEvent(), event: %s occurred. will make image visible.",
+					this.getGameEventType()));
 			this.setVisible(true);
 		}
 	}
@@ -50,7 +60,7 @@ public class OnDefense extends ImageBase {
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
 		this._gameEventManager = gameEventManager;
-		
+
 		ImageBase.GAME_EVENT_TYPE = "ON_DEFENSE";
 	}
 

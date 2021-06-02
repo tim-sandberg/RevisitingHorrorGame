@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 import com.codegauchos.games.revisitinghorror.assetmanager.Asset;
 import com.codegauchos.games.revisitinghorror.assetmanager.RevisitingHorrorAssetDescriptor;
-import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventOnDefense;
@@ -253,6 +252,14 @@ public class GameScreen implements Screen {
 		// **************************************
 		Image battleScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene));
 
+		Image playerInventory = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.playerInventory));
+		playerInventory.setPosition(500, 200);
+		playerInventory.setVisible(false);
+
+		Image sword1 = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.sword1));
+		sword1.setPosition(500, 200);
+		sword1.setVisible(false);
+
 		this._onDefense = new OnDefense(this._assetManager.get(RevisitingHorrorAssetDescriptor.onDefense),
 				this._gameEventManager);
 		this._onDefense.setVisible(false);
@@ -311,6 +318,8 @@ public class GameScreen implements Screen {
 		this._gameScreenStage.addActor(this._countDownFive);
 		this._gameScreenStage.addActor(this._prepareToAttack);
 		this._gameScreenStage.addActor(this._onDefense);
+		this._gameScreenStage.addActor(playerInventory);
+		this._gameScreenStage.addActor(sword1);
 
 		// !! this is crucial for scene2D to know player event handling
 		// needs to be aware
@@ -328,6 +337,8 @@ public class GameScreen implements Screen {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.one);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.prepareToAttack);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.onDefense);
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.playerInventory);
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.sword1);
 
 		this._assetManager.finishLoading();
 	}

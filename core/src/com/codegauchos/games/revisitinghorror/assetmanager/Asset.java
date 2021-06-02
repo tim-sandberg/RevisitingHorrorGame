@@ -19,6 +19,9 @@ public class Asset {
 	public static final String TWO = "images/two.png";
 	public static final String ON_DEFENSE = "images/on defense message.png";
 	public static final String PREPARE_TO_ATTACK = "images/prepare attack message.png";
+	public static final String PLAYER_INVENTORY = "images/player inventory.png";
+	public static final String SWORD_1 = "images/sword 1.png";
+	
 	// music 
 	public static final String BATTLE_MUSIC_1 = "sounds/rpg-battle-loop-1.wav";
 	
