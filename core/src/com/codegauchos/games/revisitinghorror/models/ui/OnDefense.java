@@ -37,7 +37,7 @@ public class OnDefense extends ImageBase {
 
 		if (this.getGameEventType() == onDefenseEvent.getGameEventType()) {
 			Gdx.app.log("OnDefense", String.format(
-					"In onEvent(), event: %s occurred. doCountDown() will execute now.", this.getGameEventType()));
+					"In onEvent(), event: %s occurred. will make image visible.", this.getGameEventType()));
 			this.setVisible(true);
 		}
 	}

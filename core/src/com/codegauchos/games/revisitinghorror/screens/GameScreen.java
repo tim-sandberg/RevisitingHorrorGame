@@ -12,8 +12,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.codegauchos.games.revisitinghorror.RevisitingHorror;
 import com.codegauchos.games.revisitinghorror.assetmanager.Asset;
 import com.codegauchos.games.revisitinghorror.assetmanager.RevisitingHorrorAssetDescriptor;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventOnDefense;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventPrepareToAttack;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventStartIntro;
 import com.codegauchos.games.revisitinghorror.models.Opponent;
@@ -60,6 +62,7 @@ public class GameScreen implements Screen {
 	private Stage _gameScreenStage;
 	private Viewport _viewport;
 	private OnDefense _onDefense;
+	private GameEventOnDefense _gameEventOnDefense;
 
 	// ***** CONSTRUCTORS ********************
 	public GameScreen(final RevisitingHorror revisitingHorrorGame) {
@@ -224,7 +227,7 @@ public class GameScreen implements Screen {
 		// 1. roll dice to calculate who goes first
 		int playerDice = (int) (Math.random() * 100);
 
-		if (playerDice + this._playerAttackFactor > 49) {
+		if (playerDice + this._playerAttackFactor > 90) {
 			// 1. instantiate the event
 			this._gameEventPrepareToAttack = new GameEventPrepareToAttack(this._prepareToAttack.getGameEventType());
 
@@ -232,10 +235,10 @@ public class GameScreen implements Screen {
 			this._gameEventManager.broadcastEvent(_gameEventPrepareToAttack);
 		} else {
 			// 1. instantiate the event
-//			this._gameEventPrepareToAttack = new GameEventPrepareToAttack(this._prepareToAttack.getGameEventType());
+			this._gameEventOnDefense = new GameEventOnDefense(this._onDefense.getGameEventType());
 
 			// 2. do broadcast
-//			this._gameEventManager.broadcastEvent(_gameEventPrepareToAttack);
+			this._gameEventManager.broadcastEvent(_gameEventOnDefense);
 
 		}
 	}
@@ -307,6 +310,7 @@ public class GameScreen implements Screen {
 		this._gameScreenStage.addActor(this._countDownFour);
 		this._gameScreenStage.addActor(this._countDownFive);
 		this._gameScreenStage.addActor(this._prepareToAttack);
+		this._gameScreenStage.addActor(this._onDefense);
 
 		// !! this is crucial for scene2D to know player event handling
 		// needs to be aware
