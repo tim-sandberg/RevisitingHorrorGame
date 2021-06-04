@@ -17,8 +17,11 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventOnDefense;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventPrepareToAttack;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventStartIntro;
+import com.codegauchos.games.revisitinghorror.inventory.PlayerInventory;
 import com.codegauchos.games.revisitinghorror.models.Opponent;
 import com.codegauchos.games.revisitinghorror.models.Player;
+import com.codegauchos.games.revisitinghorror.models.Protection;
+import com.codegauchos.games.revisitinghorror.models.Weapon;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownFive;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownFour;
 import com.codegauchos.games.revisitinghorror.models.ui.CountDownOne;
@@ -226,7 +229,7 @@ public class GameScreen implements Screen {
 		// 1. roll dice to calculate who goes first
 		int playerDice = (int) (Math.random() * 100);
 
-		if (playerDice + this._playerAttackFactor > 90) {
+		if (playerDice + this._playerAttackFactor > 49) {
 			// 1. instantiate the event
 			this._gameEventPrepareToAttack = new GameEventPrepareToAttack(this._prepareToAttack.getGameEventType());
 
@@ -252,14 +255,21 @@ public class GameScreen implements Screen {
 		// **************************************
 		Image battleScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene));
 
-		Image playerInventory = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.playerInventory));
-		playerInventory.setPosition(500, 200);
+		PlayerInventory playerInventory = new PlayerInventory(
+				this._assetManager.get(RevisitingHorrorAssetDescriptor.playerInventory), this._gameEventManager);
+		playerInventory.setPosition(100, 200);
 		playerInventory.setVisible(false);
 
-		Image sword1 = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.sword1));
-		sword1.setPosition(500, 200);
+		Image sword1 = new Weapon(this._assetManager.get(RevisitingHorrorAssetDescriptor.sword1),
+				this._gameEventManager, "Sword 1");
+		sword1.setPosition(100, 200);
 		sword1.setVisible(false);
 
+		Image shield1 = new Protection(this._assetManager.get(RevisitingHorrorAssetDescriptor.shield1), 
+				this._gameEventManager, "Shield 1");
+		shield1.setPosition(100, 200);
+		shield1.setVisible(false);
+		
 		this._onDefense = new OnDefense(this._assetManager.get(RevisitingHorrorAssetDescriptor.onDefense),
 				this._gameEventManager);
 		this._onDefense.setVisible(false);
@@ -320,6 +330,7 @@ public class GameScreen implements Screen {
 		this._gameScreenStage.addActor(this._onDefense);
 		this._gameScreenStage.addActor(playerInventory);
 		this._gameScreenStage.addActor(sword1);
+		this._gameScreenStage.addActor(shield1);
 
 		// !! this is crucial for scene2D to know player event handling
 		// needs to be aware
@@ -339,7 +350,8 @@ public class GameScreen implements Screen {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.onDefense);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.playerInventory);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.sword1);
-
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.shield1);
+		
 		this._assetManager.finishLoading();
 	}
 }

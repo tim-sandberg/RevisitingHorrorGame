@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventPlayerInventory;
 import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
 public class OnDefense extends ImageBase {
@@ -34,6 +35,7 @@ public class OnDefense extends ImageBase {
 			if (this._visibilityCounter > 10) {
 				this.setVisible(false);
 
+				this.handle(null);
 			}
 		}
 
@@ -54,8 +56,12 @@ public class OnDefense extends ImageBase {
 
 	@Override
 	public boolean handle(Event event) {
-		// TODO Auto-generated method stub
-		return false;
+		GameEventPlayerInventory gameEventPlayerInventory = new GameEventPlayerInventory("PLAYER_INVENTORY", false);
+		gameEventPlayerInventory.Level = 1;
+		
+		this._gameEventManager.broadcastEvent(gameEventPlayerInventory);
+
+		return true;
 	}
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {

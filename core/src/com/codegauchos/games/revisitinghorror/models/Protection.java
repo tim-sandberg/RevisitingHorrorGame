@@ -5,9 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventAbstract;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 
-public class Weapon extends ImageBase {
+/**
+ * for shields, armor
+ * 
+ * @author tim
+ *
+ */
+public class Protection extends ImageBase {
 	private GameEventManager _gameEventManager;
-	private GameEventAbstract _weaponEvent;
+	private GameEventAbstract _protectiveEvent;
 	private float _strength;
 	private int _level;
 
@@ -31,25 +37,25 @@ public class Weapon extends ImageBase {
 		return "PLAYER_INVENTORY";
 	}
 	
-	public Weapon(Texture texture, GameEventManager gameEventManager, String weaponName) {
+	public Protection(Texture texture, GameEventManager gameEventManager, String protectionName) {
 		super(texture);
 
-		this.initialize(texture, gameEventManager, weaponName);
+		this.initialize(texture, gameEventManager, protectionName);
 
 	}
 
 	/************ EVENT HANDLERS **************/
 
 	@Override
-	public void onEvent(GameEventAbstract weaponEvent) {
+	public void onEvent(GameEventAbstract protectiveEvent) {
 		Gdx.app.log(this.getName(),
-				String.format("In onEvent(), event: %s occurred.", weaponEvent.getGameEventType()));
+				String.format("In onEvent(), event: %s occurred.", protectiveEvent.getGameEventType()));
 
-		if (this.getGameEventType() == weaponEvent.getGameEventType()) {
+		if (this.getGameEventType() == protectiveEvent.getGameEventType()) {
 			Gdx.app.log(this.getName(), String
 					.format("In onEvent(), event: %s occurred. doCountDown() will execute now.", this.getGameEventType()));
 
-			this._weaponEvent = weaponEvent;
+			this._protectiveEvent = protectiveEvent;
 			
 			this.setVisible(true);
 //			this.doCountDown(this._weaponEvent);
@@ -58,10 +64,10 @@ public class Weapon extends ImageBase {
 	}
 	
 	// ************ METHODS ***********************
-	private void initialize(Texture texture, GameEventManager gameEventManager, String weaponName) {
+	private void initialize(Texture texture, GameEventManager gameEventManager, String protectionName) {
 		this._gameEventManager = gameEventManager;
 		
-		this.setName(weaponName);
+		this.setName(protectionName);
 		
 		this.addEventHandlers();
 	}

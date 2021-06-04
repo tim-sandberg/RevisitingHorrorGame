@@ -13,6 +13,8 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventListener;
  *
  */
 public class ImageBase extends Image implements GameEventListener {
+	private String _name;
+	
 	/**
 	 * static member
 	 * 
@@ -20,6 +22,14 @@ public class ImageBase extends Image implements GameEventListener {
 	 */
 	public String getGameEventType() {
 		return "";
+	}
+
+	public String getName() {
+		return this._name;
+	}
+
+	public void setName(String name) {
+		this._name = name;
 	}
 
 	public static String GAME_EVENT_TYPE = "";

@@ -3,6 +3,10 @@ package com.codegauchos.games.revisitinghorror.events.game;
 public class GameEventPlayerInventory extends GameEventAbstract {
 	private boolean _isAttack;
 
+	public String getGameEventType() {
+		return "PLAYER_INVENTORY";
+	}
+	
 	public boolean getIsAttack() {
 		return this._isAttack;
 	}

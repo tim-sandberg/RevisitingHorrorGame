@@ -20,7 +20,7 @@ public abstract class GameEventAbstract extends Event {
 	/**
 	 * From GameEventManager.GameEventTypes;
 	 * 
-	 * @param gameEventType
+	 * @param gameEventType (String)
 	 */
 	public GameEventAbstract(String gameEventType) {
 		this.setGameEventType(gameEventType);
