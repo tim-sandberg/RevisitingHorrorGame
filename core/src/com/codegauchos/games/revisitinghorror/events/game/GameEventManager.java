@@ -10,6 +10,7 @@ public class GameEventManager {
 
 	/************* FIELDS *****************/
 	private ArrayList<CharacterBase> _characterEventListeners = new ArrayList<CharacterBase>();
+	private ArrayList<GameEventListener> _gameEventListeners = new ArrayList<GameEventListener>();
 	private ArrayList<ImageBase> _imageEventListeners = new ArrayList<ImageBase>();
 	public static String[] GameEventTypes;
 	public boolean IsCountDownDone = false;
@@ -20,6 +21,24 @@ public class GameEventManager {
 	}
 
 	/************* METHODS *****************/
+	public void addEventListener(GameEventListener gameEventListener) {
+		// 1. is this listener registered ALREADY?
+		boolean alreadyExists = false;
+
+		for (int counter = 0; counter < this._gameEventListeners.size(); counter++) {
+			if (gameEventListener.getClass() == this._gameEventListeners.get(counter).getClass()) {
+				alreadyExists = true;
+
+				break;
+			}
+		}
+
+		if (alreadyExists == false) {
+			Gdx.app.log("GameEventManager", "In addEventListener(), adding listener: " + gameEventListener.getClass());
+
+			this._gameEventListeners.add(gameEventListener);
+		}
+	}
 
 	public void addImageEventListener(ImageBase image) {
 		// 1. is this listener registered ALREADY?
@@ -100,6 +119,17 @@ public class GameEventManager {
 				this._imageEventListeners.get(counter).onEvent(gameEvent);
 			}
 		}
+
+		// todo: implement gameEventListeners broadcast logic
+//		for (int counter = 0; counter < this._gameEventListeners.size(); counter++) {
+//			if (gameEvent.getGameEventType() == this._gameEventListeners.get(counter).getGameEventType()) {
+//				Gdx.app.log("GameEventManager",
+//						String.format("In broadcastEvent(), dispatching event notification for: %s.",
+//								this._gameEventListeners.get(counter).getClass().toString()));
+//
+//				this._gameEventListeners.get(counter).onEvent(gameEvent);
+//			}
+//		}
 
 		if (gameEvent.isHandled() == true) {
 			Gdx.app.log("GameEventManager", "In broadcastEvent(), event handled.  Now, stopping event");

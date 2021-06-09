@@ -17,6 +17,11 @@ public class PrepareToAttack extends ImageBase {
 		return "PREPARE_TO_ATTACK";
 	}
 
+	/**
+	 *                CONSTRUCTOR 
+	 * @param texture
+	 * @param gameEventManager
+	 */
 	public PrepareToAttack(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 

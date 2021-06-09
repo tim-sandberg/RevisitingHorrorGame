@@ -46,6 +46,12 @@ public class ImageBase extends Image implements GameEventListener {
 		return false;
 	}
 
+	/**
+	 * constructor 
+	 * 
+	 * 
+	 * @param texture
+	 */
 	public ImageBase(Texture texture) {
 		super(texture);
 	}

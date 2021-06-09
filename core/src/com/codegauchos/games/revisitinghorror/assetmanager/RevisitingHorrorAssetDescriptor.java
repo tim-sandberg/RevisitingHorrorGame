@@ -8,6 +8,7 @@ public class RevisitingHorrorAssetDescriptor {
 			Texture.class);
 	public static final AssetDescriptor<Texture> five = new AssetDescriptor<Texture>(Asset.FIVE, Texture.class);
 	public static final AssetDescriptor<Texture> four = new AssetDescriptor<Texture>(Asset.FOUR, Texture.class);
+	public static final AssetDescriptor<Texture> loadout = new AssetDescriptor<Texture>(Asset.LOADOUT, Texture.class);
 	public static final AssetDescriptor<Texture> onDefense = new AssetDescriptor<Texture>(Asset.ON_DEFENSE, Texture.class);
 	public static final AssetDescriptor<Texture> one = new AssetDescriptor<Texture>(Asset.ONE, Texture.class);
 	public static final AssetDescriptor<Texture> opponent = new AssetDescriptor<Texture>(Asset.OPPONENT, Texture.class);

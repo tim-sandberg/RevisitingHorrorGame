@@ -16,7 +16,7 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventOnDefense;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventPrepareToAttack;
-import com.codegauchos.games.revisitinghorror.events.game.GameEventStartIntro;
+import com.codegauchos.games.revisitinghorror.events.game.GameEventBattle;
 import com.codegauchos.games.revisitinghorror.inventory.PlayerInventory;
 import com.codegauchos.games.revisitinghorror.models.Opponent;
 import com.codegauchos.games.revisitinghorror.models.Player;
@@ -200,31 +200,12 @@ public class GameScreen implements Screen {
 
 	}
 
-	private void startIntro(int level) {
-		Gdx.app.log("GameScreen", "In startIntro(), starting intro to battle");
-
-		// instantiate the event
-		GameEventStartIntro gameEventStartIntro = new GameEventStartIntro(this._katniss.getGameEventType());
-
-		gameEventStartIntro.Level = 1;
-		gameEventStartIntro.setStage(this._gameScreenStage);
-		gameEventStartIntro.setListenerActor(_katniss);
-
-		// broadcast the event
-		this._gameEventManager.broadcastEvent(gameEventStartIntro);
-
-	}
-
-	public void startBattle() {
-		// TODO: broadcast from here
-
-	}
 
 	/**
 	 * player is either in attack mode or on defense
 	 */
 	private void priortizeAttack() {
-		Gdx.app.log("GameScreen", "In startCountdown(), showing 'Prepare To Attack' message.");
+		Gdx.app.log("GameScreen", "In priortizeAttack(), showing 'Prepare To Attack' message.");
 
 		// 1. roll dice to calculate who goes first
 		int playerDice = (int) (Math.random() * 100);
@@ -254,22 +235,24 @@ public class GameScreen implements Screen {
 		// **************************** this order matters!!
 		// **************************************
 		Image battleScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.battleScene));
+		Image loadout = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.loadout));
+		loadout.setPosition(750, 0);
 
 		PlayerInventory playerInventory = new PlayerInventory(
 				this._assetManager.get(RevisitingHorrorAssetDescriptor.playerInventory), this._gameEventManager);
-		playerInventory.setPosition(100, 200);
+		playerInventory.setPosition(200, 200);
 		playerInventory.setVisible(false);
 
 		Image sword1 = new Weapon(this._assetManager.get(RevisitingHorrorAssetDescriptor.sword1),
 				this._gameEventManager, "Sword 1");
-		sword1.setPosition(100, 200);
+		sword1.setPosition(200, 200);
 		sword1.setVisible(false);
 
-		Image shield1 = new Protection(this._assetManager.get(RevisitingHorrorAssetDescriptor.shield1), 
+		Image shield1 = new Protection(this._assetManager.get(RevisitingHorrorAssetDescriptor.shield1),
 				this._gameEventManager, "Shield 1");
-		shield1.setPosition(100, 200);
+		shield1.setPosition(200, 200);
 		shield1.setVisible(false);
-		
+
 		this._onDefense = new OnDefense(this._assetManager.get(RevisitingHorrorAssetDescriptor.onDefense),
 				this._gameEventManager);
 		this._onDefense.setVisible(false);
@@ -319,6 +302,7 @@ public class GameScreen implements Screen {
 		// this order matters
 		// z-order (who gets drawn first. based on who is added before the other
 		this._gameScreenStage.addActor(battleScene);
+		this._gameScreenStage.addActor(loadout);
 		this._gameScreenStage.addActor(this._katniss);
 		this._gameScreenStage.addActor(this._cato);
 		this._gameScreenStage.addActor(this._countDownOne);
@@ -351,7 +335,8 @@ public class GameScreen implements Screen {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.playerInventory);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.sword1);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.shield1);
-		
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.loadout);
+
 		this._assetManager.finishLoading();
 	}
 }
