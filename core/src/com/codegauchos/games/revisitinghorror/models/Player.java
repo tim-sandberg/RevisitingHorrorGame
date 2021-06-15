@@ -159,7 +159,7 @@ public class Player extends CharacterBase {
 		this.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keyCode) {
-				Gdx.app.log("Player", "keyDown(), key down event occurred for " + actorName);
+				Gdx.app.log("Player", "keyDown(), key down event occurred for " /*+ actorName*/);
 
 				handleMovement(keyCode);
 
@@ -170,7 +170,7 @@ public class Player extends CharacterBase {
 		this.addListener(new InputListener() {
 			@Override
 			public boolean keyUp(InputEvent event, int keyCode) {
-				Gdx.app.log("Player", "keyUp(), key up event occurred for " + actorName);
+				Gdx.app.log("Player", "keyUp(), key up event occurred for " /*+ actorName*/);
 
 				// player has lifted up on movement key
 				// KILL movement!

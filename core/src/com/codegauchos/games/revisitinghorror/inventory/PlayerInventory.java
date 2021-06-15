@@ -55,7 +55,7 @@ public class PlayerInventory extends ImageBase {
 		GameEventBattle gameEventBattle = new GameEventBattle("START_BATTLE", this._playerInventoryEvent.getIsAttack());
 
 		this._gameEventManager.broadcastEvent(gameEventBattle);
-		
+
 		return true;
 	}
 
@@ -77,7 +77,9 @@ public class PlayerInventory extends ImageBase {
 		if (this._timer > 35) {
 			this.setVisible(false);
 
-			this.handle(this._playerInventoryEvent);
+			if (this._playerInventoryEvent != null) {
+				this.handle(this._playerInventoryEvent);
+			}
 		}
 	}
 

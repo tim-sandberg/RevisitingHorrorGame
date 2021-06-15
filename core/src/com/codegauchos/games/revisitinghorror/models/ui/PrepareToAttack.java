@@ -18,7 +18,8 @@ public class PrepareToAttack extends ImageBase {
 	}
 
 	/**
-	 *                CONSTRUCTOR 
+	 * CONSTRUCTOR
+	 * 
 	 * @param texture
 	 * @param gameEventManager
 	 */
@@ -36,7 +37,7 @@ public class PrepareToAttack extends ImageBase {
 			this._visibilityCounter += delta;
 
 			Gdx.app.log("PrepareToAttack", "In act(), visibility counter: " + this._visibilityCounter);
-			
+
 			if (this._visibilityCounter > 10) {
 				this.setVisible(false);
 
@@ -66,7 +67,7 @@ public class PrepareToAttack extends ImageBase {
 	public boolean handle(Event event) {
 		GameEventPlayerInventory gameEventPlayerInventory = new GameEventPlayerInventory("PLAYER_INVENTORY", true);
 		gameEventPlayerInventory.Level = 1;
-		
+
 		this._gameEventManager.broadcastEvent(gameEventPlayerInventory);
 
 		return true;
@@ -74,8 +75,6 @@ public class PrepareToAttack extends ImageBase {
 
 	private void initialize(Texture texture, GameEventManager gameEventManager) {
 		this._gameEventManager = gameEventManager;
-
-		ImageBase.GAME_EVENT_TYPE = "PREPARE_TO_ATTACK";
 	}
 
 	private void addEventHandlers() {

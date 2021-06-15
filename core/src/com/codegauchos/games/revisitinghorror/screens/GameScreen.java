@@ -16,6 +16,7 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventCountDown;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventOnDefense;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventPrepareToAttack;
+import com.codegauchos.games.revisitinghorror.events.battle.BattleEventListener;
 import com.codegauchos.games.revisitinghorror.events.game.GameEventBattle;
 import com.codegauchos.games.revisitinghorror.inventory.PlayerInventory;
 import com.codegauchos.games.revisitinghorror.models.Opponent;
@@ -42,6 +43,7 @@ public class GameScreen implements Screen {
 	private final AssetManager _assetManager;
 	private Music _battleMusic;
 	private Opponent _cato;
+	private BattleEventListener _battle;
 	private CountDownFive _countDownFive;
 	private CountDownFour _countDownFour;
 	private CountDownOne _countDownOne;
@@ -90,6 +92,9 @@ public class GameScreen implements Screen {
 
 		// this coordinates event handling
 		Gdx.input.setInputProcessor(this._gameScreenStage);
+		
+//		todo: complete battle code here
+//		this._battle = new BattleEventListener();
 
 		this.loadAssets();
 

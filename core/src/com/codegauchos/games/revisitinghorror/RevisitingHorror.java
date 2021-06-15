@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.codegauchos.games.revisitinghorror.screens.GameScreen;
 import com.codegauchos.games.revisitinghorror.screens.MainMenuScreen;
+import com.codegauchos.games.revisitinghorror.screens.ShopScreen;
 
 /**
  * responsible for handling multiple screens and provides some helper methods
@@ -64,5 +65,12 @@ public class RevisitingHorror extends Game {
 		GameScreen gameScreen = new GameScreen(this);
 
 		this.setScreen(gameScreen);
+	}
+
+
+	public void gotoShopScreen() {
+		ShopScreen shopScreen = new ShopScreen(this);
+
+		this.setScreen(shopScreen);
 	}
 }
