@@ -43,9 +43,9 @@ public class ShopScreen implements Screen {
 	public void render(float delta) {
 		// clear the screen and put a blue background on it
 		ScreenUtils.clear(0.6f, 0.4f, 0.0f, 1);
-		
+
 		this._shopScreenStage.act(Gdx.graphics.getDeltaTime());
-		
+
 		this._shopScreenStage.draw();
 	}
 
@@ -80,7 +80,7 @@ public class ShopScreen implements Screen {
 	}
 
 	private void initialize() {
-		
+
 	}
 
 	private void loadActors() {
@@ -91,18 +91,29 @@ public class ShopScreen implements Screen {
 		dailyAwardButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				_revisitingHorrorGame.gotoShopScreen();
+				collectDailyAward();
 
 				return true;
 			}
 		});
 
+		Image goldTotal = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.goldTotal));
+		goldTotal.setPosition(1000, 970);
+		
 		this._shopScreenStage.addActor(dailyAwardButton);
+		this._shopScreenStage.addActor(goldTotal);
 	}
 
 	private void loadAssets() {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.dailyAwardButton);
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.goldTotal);
 
 		this._assetManager.finishLoading();
 	}
+
+	private void collectDailyAward() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

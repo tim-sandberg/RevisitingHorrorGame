@@ -13,6 +13,7 @@ public class Asset {
 	public static final String DAILY_AWARD_BUTTON = "images/daily award button.png";
 	public static final String FIVE = "images/five.png";
 	public static final String FOUR = "images/four.png";
+	public static final String GOLD_TOTAL = "images/gold total.png";
 	public static final String ONE = "images/one.png";
 	public static final String OPPONENT = "images/Cato sprite.png";
 	public static final String PLAYER = "images/Katniss sprite.png";

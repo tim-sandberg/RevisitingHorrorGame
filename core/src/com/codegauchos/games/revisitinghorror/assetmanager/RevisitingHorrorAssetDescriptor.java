@@ -9,6 +9,7 @@ public class RevisitingHorrorAssetDescriptor {
 	public static final AssetDescriptor<Texture> dailyAwardButton = new AssetDescriptor<Texture>(Asset.DAILY_AWARD_BUTTON, Texture.class);
 	public static final AssetDescriptor<Texture> five = new AssetDescriptor<Texture>(Asset.FIVE, Texture.class);
 	public static final AssetDescriptor<Texture> four = new AssetDescriptor<Texture>(Asset.FOUR, Texture.class);
+	public static final AssetDescriptor<Texture> goldTotal = new AssetDescriptor<Texture>(Asset.GOLD_TOTAL, Texture.class);
 	public static final AssetDescriptor<Texture> loadout = new AssetDescriptor<Texture>(Asset.LOADOUT, Texture.class);
 	public static final AssetDescriptor<Texture> onDefense = new AssetDescriptor<Texture>(Asset.ON_DEFENSE, Texture.class);
 	public static final AssetDescriptor<Texture> one = new AssetDescriptor<Texture>(Asset.ONE, Texture.class);
