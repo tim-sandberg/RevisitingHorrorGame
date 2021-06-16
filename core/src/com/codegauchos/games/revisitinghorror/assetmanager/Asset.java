@@ -10,7 +10,8 @@ public class Asset {
 	// CONSTANTS
 	public static final String BATTLE_SCENE = "images/Battle Scene.png";
 	public static final String COMIC_UI_SKIN = "skins/comic-ui.json";
-	public static final String FIVE= "images/five.png";
+	public static final String DAILY_AWARD_BUTTON = "images/daily award button.png";
+	public static final String FIVE = "images/five.png";
 	public static final String FOUR = "images/four.png";
 	public static final String ONE = "images/one.png";
 	public static final String OPPONENT = "images/Cato sprite.png";
@@ -25,10 +26,10 @@ public class Asset {
 	public static final String SHOP_BUTTON = "images/shop button.png";
 	public static final String SHOP_SCREEN = "images/shop screen.png";
 	public static final String SWORD_1 = "images/sword 1.png";
-	
-	// music 
+
+	// music
 	public static final String BATTLE_MUSIC_1 = "sounds/rpg-battle-loop-1.wav";
-	
+
 	private Asset() {
 
 	}

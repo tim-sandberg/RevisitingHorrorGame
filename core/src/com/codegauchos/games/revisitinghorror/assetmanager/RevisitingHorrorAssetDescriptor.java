@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class RevisitingHorrorAssetDescriptor {
 	public static final AssetDescriptor<Texture> battleScene = new AssetDescriptor<Texture>(Asset.BATTLE_SCENE,
 			Texture.class);
+	public static final AssetDescriptor<Texture> dailyAwardButton = new AssetDescriptor<Texture>(Asset.DAILY_AWARD_BUTTON, Texture.class);
 	public static final AssetDescriptor<Texture> five = new AssetDescriptor<Texture>(Asset.FIVE, Texture.class);
 	public static final AssetDescriptor<Texture> four = new AssetDescriptor<Texture>(Asset.FOUR, Texture.class);
 	public static final AssetDescriptor<Texture> loadout = new AssetDescriptor<Texture>(Asset.LOADOUT, Texture.class);
