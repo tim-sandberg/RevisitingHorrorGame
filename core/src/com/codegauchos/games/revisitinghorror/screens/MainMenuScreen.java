@@ -3,7 +3,6 @@ package com.codegauchos.games.revisitinghorror.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,7 +23,6 @@ public class MainMenuScreen implements Screen {
 	private Button _gameButton;
 	private Stage _mainMenuStage;
 	private final RevisitingHorror _revisitingHorrorGame;
-	private Button _shopButton;
 	private Viewport _viewport;
 
 	// constructor for MainMenuScreen
@@ -136,11 +134,6 @@ public class MainMenuScreen implements Screen {
 			}
 
 		});
-
-//		this._shopButton = new TextButton("Shop", new TextButton.TextButtonStyle());
-//
-//		this._shopButton.setSize(230, 48);
-//		this._shopButton.setPosition(700, 200);
 	}
 
 	private void loadActors() {
