@@ -6,14 +6,18 @@ import com.badlogic.gdx.graphics.Texture;
 public class RevisitingHorrorAssetDescriptor {
 	public static final AssetDescriptor<Texture> battleScene = new AssetDescriptor<Texture>(Asset.BATTLE_SCENE,
 			Texture.class);
+	public static final AssetDescriptor<Texture> backButton = new AssetDescriptor<Texture>(Asset.BACK_BUTTON, Texture.class);
 	public static final AssetDescriptor<Texture> dailyAwardButton = new AssetDescriptor<Texture>(Asset.DAILY_AWARD_BUTTON, Texture.class);
+	public static final AssetDescriptor<Texture> exitButton = new AssetDescriptor<Texture>(Asset.EXIT_BUTTON, Texture.class);
 	public static final AssetDescriptor<Texture> five = new AssetDescriptor<Texture>(Asset.FIVE, Texture.class);
 	public static final AssetDescriptor<Texture> four = new AssetDescriptor<Texture>(Asset.FOUR, Texture.class);
 	public static final AssetDescriptor<Texture> goldTotal = new AssetDescriptor<Texture>(Asset.GOLD_TOTAL, Texture.class);
+	public static final AssetDescriptor<Texture> goldTotalBackground = new AssetDescriptor<Texture>(Asset.GOLD_TOTAL_BACKGROUND, Texture.class);
 	public static final AssetDescriptor<Texture> loadout = new AssetDescriptor<Texture>(Asset.LOADOUT, Texture.class);
 	public static final AssetDescriptor<Texture> onDefense = new AssetDescriptor<Texture>(Asset.ON_DEFENSE, Texture.class);
 	public static final AssetDescriptor<Texture> one = new AssetDescriptor<Texture>(Asset.ONE, Texture.class);
 	public static final AssetDescriptor<Texture> opponent = new AssetDescriptor<Texture>(Asset.OPPONENT, Texture.class);
+	public static final AssetDescriptor<Texture> playButton = new AssetDescriptor<Texture>(Asset.PLAY_BUTTON, Texture.class);
 	public static final AssetDescriptor<Texture> player = new AssetDescriptor<Texture>(Asset.PLAYER, Texture.class);
 	public static final AssetDescriptor<Texture> playerInventory = new AssetDescriptor<Texture>(Asset.PLAYER_INVENTORY, Texture.class);
 	public static final AssetDescriptor<Texture> prepareToAttack = new AssetDescriptor<Texture>(Asset.PREPARE_TO_ATTACK, Texture.class);

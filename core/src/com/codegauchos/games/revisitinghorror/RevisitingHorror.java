@@ -21,7 +21,8 @@ public class RevisitingHorror extends Game {
 	// fields
 	private SpriteBatch _spriteBatch;
 	public BitmapFont horrorTitleFont;
-
+	public BitmapFont AncientYellowFont;
+	
 	// COMMENT: constants
 	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 1024;
@@ -36,7 +37,8 @@ public class RevisitingHorror extends Game {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 		horrorTitleFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
-
+		AncientYellowFont = new BitmapFont(Gdx.files.internal("fonts/ancient_yellow.fnt"));
+		
 		// SpriteBatch: special class that is used to draw 2D images
 		_spriteBatch = new SpriteBatch();
 

@@ -11,13 +11,22 @@ import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
 public class PlayerInventory extends ImageBase {
 	private float _timer = 0f;
+	private int _totalGold;
 	private GameEventManager _gameEventManager;
 	private GameEventPlayerInventory _playerInventoryEvent;
 
 	public String getGameEventType() {
 		return "PLAYER_INVENTORY";
 	}
+	
+	public int getTotalGold() {
+		return _totalGold;
+	}
 
+	public void setTotalGold(int totalGold) {
+		_totalGold = totalGold;
+	}
+	
 	public PlayerInventory(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 
@@ -82,5 +91,4 @@ public class PlayerInventory extends ImageBase {
 			}
 		}
 	}
-
 }

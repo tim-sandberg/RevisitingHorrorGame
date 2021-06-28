@@ -48,7 +48,7 @@ public class MainMenuScreen implements Screen {
 
 		this.loadActors();
 
-		this._mainMenuStage.addActor(this._gameButton);
+//		this._mainMenuStage.addActor(this._gameButton);
 	}
 
 	@Override
@@ -112,35 +112,35 @@ public class MainMenuScreen implements Screen {
 	 * https://github.com/czyzby/gdx-skins
 	 */
 	private void initialize() {
-		Skin startButtonSkin = new Skin(Gdx.files.internal(Asset.COMIC_UI_SKIN));
+//		Skin startButtonSkin = new Skin(Gdx.files.internal(Asset.COMIC_UI_SKIN));
 
-		this._gameButton = new TextButton("Start Game", startButtonSkin, "default");
-
-		_gameButton.setSize(230, 48);
-		_gameButton.setPosition(400, 200);
-		_gameButton.addListener(new InputListener() {
-
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				_revisitingHorrorGame.gotoGameScreen();
-
-				return true;
-			}
-
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				// TODO Auto-generated method stub
-				super.touchUp(event, x, y, pointer, button);
-			}
-
-		});
+//		this._gameButton = new TextButton("Start Game", startButtonSkin, "default");
+//
+//		_gameButton.setSize(230, 48);
+//		_gameButton.setPosition(400, 200);
+//		_gameButton.addListener(new InputListener() {
+//
+//			@Override
+//			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//				_revisitingHorrorGame.gotoGameScreen();
+//
+//				return true;
+//			}
+//
+//			@Override
+//			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+//				// TODO Auto-generated method stub
+//				super.touchUp(event, x, y, pointer, button);
+//			}
+//
+//		});
 	}
 
 	private void loadActors() {
 		Gdx.app.log("MainMenuScreen", "In loadActors(), ");
 
 		Image shopButton = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.shopButton));
-		shopButton.setPosition(700, 200);
+		shopButton.setPosition(650, 200);
 		shopButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -150,13 +150,26 @@ public class MainMenuScreen implements Screen {
 			}
 		});
 
+		Image playButton = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.playButton));
+		playButton.setPosition(450, 202);
+		playButton.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				_revisitingHorrorGame.gotoGameScreen();
+
+				return true;
+			}
+		});
+
 		this._mainMenuStage.addActor(shopButton);
+		this._mainMenuStage.addActor(playButton);
 	}
 
 	private void loadAssets() {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.shopButton);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.shopScreen);
-
+		this._assetManager.load(RevisitingHorrorAssetDescriptor.playButton);
+		
 		this._assetManager.finishLoading();
 	}
 }
