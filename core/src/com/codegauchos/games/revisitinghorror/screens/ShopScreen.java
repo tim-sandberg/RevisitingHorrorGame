@@ -66,6 +66,7 @@ public class ShopScreen implements Screen {
 
 		this._shopScreenStage.act(Gdx.graphics.getDeltaTime());
 
+		// updates the label to show the current total gold, after the daily award has been collected
 		if (this._lblTotalGold.textEquals(String.valueOf(this._playerInventory.getTotalGold())) == false) {
 			this._lblTotalGold.setText(this._playerInventory.getTotalGold());
 		}
@@ -140,6 +141,7 @@ public class ShopScreen implements Screen {
 		Gdx.app.log("ShopScreen", "In loadActors(), ");
 
 		Image shopScene = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.shopScreen));
+		
 		this._dailyAwardButton = new Image(this._assetManager.get(RevisitingHorrorAssetDescriptor.dailyAwardButton));
 		this._dailyAwardButton.setPosition(500, 500);
 		this._dailyAwardButton.addListener(new InputListener() {
@@ -188,7 +190,7 @@ public class ShopScreen implements Screen {
 
 		this._dailyAwardButton.setVisible(false);
 
-		// TODO: add daily award amount to gold total
+		// DONE: add daily award amount to gold total
 		int dailyAward = 10;
 
 		int totalGold = this._playerInventory.getTotalGold() + dailyAward;
@@ -198,6 +200,7 @@ public class ShopScreen implements Screen {
 		Gdx.app.log("ShopScreen",
 				"In collectDailyAward(), playerInventory - totalGold: " + this._playerInventory.getTotalGold());
 
+//		LET's save the total gold to the player's file
 		try {
 			Writer userDataWriter = Files.newBufferedWriter(Paths.get("../data/user_data.json"));
 

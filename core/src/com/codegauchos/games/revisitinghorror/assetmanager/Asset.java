@@ -15,7 +15,6 @@ public class Asset {
 	public static final String EXIT_BUTTON = "images/exit button.png";
 	public static final String FIVE = "images/five.png";
 	public static final String FOUR = "images/four.png";
-	public static final String GOLD_TOTAL = "images/gold total.png";
 	public static final String GOLD_TOTAL_BACKGROUND = "images/gold total background.png";
 	public static final String ONE = "images/one.png";
 	public static final String OPPONENT = "images/Cato sprite.png";

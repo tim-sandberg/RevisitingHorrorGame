@@ -1,0 +1,187 @@
+
+sprite_sheet.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Cato sprite
+  rotate: false
+  xy: 1718, 1628
+  size: 106, 200
+  orig: 106, 200
+  offset: 0, 0
+  index: -1
+Katniss sprite
+  rotate: false
+  xy: 1204, 1016
+  size: 106, 129
+  orig: 106, 129
+  offset: 0, 0
+  index: -1
+Player inventory
+  rotate: false
+  xy: 2, 204
+  size: 800, 800
+  orig: 800, 800
+  offset: 0, 0
+  index: -1
+ancient_yellow
+  rotate: false
+  xy: 1204, 1382
+  size: 512, 82
+  orig: 512, 512
+  offset: 0, 429
+  index: -1
+back button
+  rotate: false
+  xy: 804, 824
+  size: 145, 43
+  orig: 145, 44
+  offset: 0, 0
+  index: -1
+daily award button
+  rotate: false
+  xy: 804, 915
+  size: 323, 89
+  orig: 323, 93
+  offset: 0, 2
+  index: -1
+exit button
+  rotate: false
+  xy: 957, 872
+  size: 145, 41
+  orig: 145, 41
+  offset: 0, 0
+  index: -1
+fight button
+  rotate: false
+  xy: 1646, 1172
+  size: 145, 45
+  orig: 145, 45
+  offset: 0, 0
+  index: -1
+five
+  rotate: false
+  xy: 1129, 928
+  size: 64, 76
+  orig: 64, 90
+  offset: 0, 4
+  index: -1
+four
+  rotate: false
+  xy: 1312, 1037
+  size: 64, 66
+  orig: 64, 90
+  offset: 0, 3
+  index: -1
+gold total
+  rotate: false
+  xy: 804, 869
+  size: 151, 44
+  orig: 151, 44
+  offset: 0, 0
+  index: -1
+gold total background
+  rotate: false
+  xy: 1312, 1105
+  size: 151, 40
+  orig: 151, 44
+  offset: 0, 2
+  index: -1
+loadout
+  rotate: false
+  xy: 1204, 1147
+  size: 440, 120
+  orig: 440, 120
+  offset: 0, 0
+  index: -1
+on defense message
+  rotate: false
+  xy: 1204, 1320
+  size: 626, 60
+  orig: 626, 63
+  offset: 0, 1
+  index: -1
+one
+  rotate: false
+  xy: 804, 756
+  size: 64, 66
+  orig: 64, 90
+  offset: 0, 2
+  index: -1
+parchment
+  rotate: false
+  xy: 1204, 1466
+  size: 512, 362
+  orig: 512, 512
+  offset: 0, 150
+  index: -1
+play button
+  rotate: false
+  xy: 1826, 1783
+  size: 147, 45
+  orig: 147, 45
+  offset: 0, 0
+  index: -1
+prepare attack message
+  rotate: false
+  xy: 1204, 1269
+  size: 684, 49
+  orig: 684, 63
+  offset: 0, 2
+  index: -1
+shield 1
+  rotate: false
+  xy: 2, 2
+  size: 800, 200
+  orig: 800, 800
+  offset: 0, 390
+  index: -1
+shop button
+  rotate: false
+  xy: 1646, 1219
+  size: 149, 48
+  orig: 149, 52
+  offset: 0, 2
+  index: -1
+shop screen
+  rotate: false
+  xy: 2, 1006
+  size: 1200, 1024
+  orig: 1200, 1024
+  offset: 0, 0
+  index: -1
+sword 1
+  rotate: false
+  xy: 1204, 1830
+  size: 800, 200
+  orig: 800, 800
+  offset: 0, 390
+  index: -1
+three
+  rotate: false
+  xy: 1718, 1558
+  size: 64, 68
+  orig: 64, 90
+  offset: 0, 6
+  index: -1
+two
+  rotate: false
+  xy: 1826, 1714
+  size: 64, 67
+  orig: 64, 90
+  offset: 0, 3
+  index: -1
+
+sprite_sheet2.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Battle Scene
+  rotate: false
+  xy: 2, 2
+  size: 1200, 1024
+  orig: 1200, 1024
+  offset: 0, 0
+  index: -1

@@ -29,7 +29,7 @@ public class MainMenuScreen implements Screen {
 	public MainMenuScreen(RevisitingHorror game) {
 		this._revisitingHorrorGame = game;
 
-		this._assetManager = new AssetManager();
+		this._assetManager = new AssetManager(); // TODO: this._revisitingHorrorGame.assetManager;
 
 		this.initialize();
 	}
@@ -169,7 +169,7 @@ public class MainMenuScreen implements Screen {
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.shopButton);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.shopScreen);
 		this._assetManager.load(RevisitingHorrorAssetDescriptor.playButton);
-		
+
 		this._assetManager.finishLoading();
 	}
 }

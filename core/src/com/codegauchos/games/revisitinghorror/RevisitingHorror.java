@@ -3,6 +3,8 @@ package com.codegauchos.games.revisitinghorror;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.codegauchos.games.revisitinghorror.screens.GameScreen;
@@ -19,10 +21,11 @@ import com.codegauchos.games.revisitinghorror.screens.ShopScreen;
  */
 public class RevisitingHorror extends Game {
 	// fields
+	public AssetManager assetManager;
 	private SpriteBatch _spriteBatch;
 	public BitmapFont horrorTitleFont;
 	public BitmapFont AncientYellowFont;
-	
+
 	// COMMENT: constants
 	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 1024;
@@ -32,13 +35,25 @@ public class RevisitingHorror extends Game {
 		return this._spriteBatch;
 	}
 
+	public RevisitingHorror() {
+		this.assetManager = new AssetManager();
+	}
+
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+		// 1. Create a BitmapFontParameter, pointing to your atlas
+		BitmapFontLoader.BitmapFontParameter fontParameter = new BitmapFontLoader.BitmapFontParameter();
+		fontParameter.atlasName = "skins/revisiting_horror_skin/sprite_sheet";
+
+		// 2. Pass that parameter as the third argument to "load"
+		this.assetManager.load("fonts/parchment.fnt", BitmapFont.class, fontParameter);
+		this.assetManager.load("fonts/ancient_yellow.fnt", BitmapFont.class, fontParameter);
+		
 		horrorTitleFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
 		AncientYellowFont = new BitmapFont(Gdx.files.internal("fonts/ancient_yellow.fnt"));
-		
+
 		// SpriteBatch: special class that is used to draw 2D images
 		_spriteBatch = new SpriteBatch();
 
@@ -68,7 +83,6 @@ public class RevisitingHorror extends Game {
 
 		this.setScreen(gameScreen);
 	}
-
 
 	public void gotoShopScreen() {
 		ShopScreen shopScreen = new ShopScreen(this);
