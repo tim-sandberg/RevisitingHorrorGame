@@ -7,6 +7,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.codegauchos.games.revisitinghorror.assetmanager.Asset;
 import com.codegauchos.games.revisitinghorror.screens.GameScreen;
 import com.codegauchos.games.revisitinghorror.screens.MainMenuScreen;
 import com.codegauchos.games.revisitinghorror.screens.ShopScreen;
@@ -25,6 +28,8 @@ public class RevisitingHorror extends Game {
 	private SpriteBatch _spriteBatch;
 	public BitmapFont horrorTitleFont;
 	public BitmapFont AncientYellowFont;
+	public TextureAtlas SpriteSheetAtlas;
+	public Skin SpriteSheetSkin;
 
 	// COMMENT: constants
 	public static final int SCREEN_WIDTH = 1200;
@@ -43,6 +48,10 @@ public class RevisitingHorror extends Game {
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+		this.SpriteSheetAtlas = new TextureAtlas(Gdx.files.internal(Asset.SPRITE_SHEET_ATLAS));
+//		TODO: implement skins
+//		this.SpriteSheetSkin = new Skin(Gdx.files.internal(Asset.SPRITE_SHEET_SKIN));
+		
 		// 1. Create a BitmapFontParameter, pointing to your atlas
 		BitmapFontLoader.BitmapFontParameter fontParameter = new BitmapFontLoader.BitmapFontParameter();
 		fontParameter.atlasName = "skins/revisiting_horror_skin/sprite_sheet";
@@ -50,7 +59,7 @@ public class RevisitingHorror extends Game {
 		// 2. Pass that parameter as the third argument to "load"
 		this.assetManager.load("fonts/parchment.fnt", BitmapFont.class, fontParameter);
 		this.assetManager.load("fonts/ancient_yellow.fnt", BitmapFont.class, fontParameter);
-		
+
 		horrorTitleFont = new BitmapFont(Gdx.files.internal("fonts/parchment.fnt"));
 		AncientYellowFont = new BitmapFont(Gdx.files.internal("fonts/ancient_yellow.fnt"));
 
@@ -70,6 +79,7 @@ public class RevisitingHorror extends Game {
 	public void dispose() {
 		_spriteBatch.dispose();
 		horrorTitleFont.dispose();
+		this.AncientYellowFont.dispose();
 	}
 
 	public void gotoMainMenuScreen() {

@@ -5,9 +5,10 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 public abstract class GameEventAbstract extends Event {
 	/*********** FIELDS ******************/
 	private String _gameEventType;
-	public int Level;
 	
 	/*********** MEMBERS ******************/
+	public int Level;
+	
 	public String getGameEventType() {
 		return _gameEventType;
 	}

@@ -10,15 +10,22 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 import com.codegauchos.games.revisitinghorror.models.ImageBase;
 
 public class CountDownFive extends ImageBase {
+	// fields
 	private GameEventManager _gameEventManager;
 	private GameEventAbstract _countDownFiveEvent;
 	private float _scaleCounter = 0.05f;
 
+	// member - getters/setter
 	@Override
 	public String getGameEventType() {
 		return "COUNT_DOWN_5";
 	}
 	
+	/**
+	 * Constructor: 
+	 * @param texture
+	 * @param gameEventManager
+	 */
 	public CountDownFive(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 

@@ -97,6 +97,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		Gdx.app.log("GameScreen", "In show(), ");
+		
 		this._viewport = new FitViewport(RevisitingHorror.SCREEN_WIDTH, RevisitingHorror.SCREEN_HEIGHT);
 
 		// let the stage use the existing spriteBatch. object is very heavy
@@ -210,7 +212,7 @@ public class GameScreen implements Screen {
 
 		// 1. instantiate the event
 		this._gameEventCountDown = new GameEventCountDown(this._countDownFive.getGameEventType());
-		this._gameEventCountDown.Level = 1;
+		this._gameEventCountDown.Level = level;
 		this._gameEventCountDown.setStage(this._gameScreenStage);
 
 		// 2. broadcast the event

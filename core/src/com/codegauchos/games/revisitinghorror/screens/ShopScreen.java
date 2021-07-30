@@ -128,12 +128,12 @@ public class ShopScreen implements Screen {
 				Gdx.app.log("ShopScreen",
 						"In initialize(), userData totalGold: " + this._playerInventory.getTotalGold());
 			} else {
-				Gdx.app.error("ShopScreen", "In initialize(), could not find  user Data.");
+				Gdx.app.error("ShopScreen", "In initialize(), system ran into a problem.");
 			}
 
 			bufferedReader.close();
 		} catch (Exception ex) {
-			Gdx.app.log("ShopScreen", "In initialize(), system ran into exception: " + ex.getMessage());
+			Gdx.app.error("ShopScreen", "In initialize(), system ran into exception: " + ex.getMessage());
 		}
 	}
 
@@ -158,6 +158,7 @@ public class ShopScreen implements Screen {
 		backButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				
 				_revisitingHorrorGame.gotoMainMenuScreen();
 
 				return true;
@@ -207,8 +208,8 @@ public class ShopScreen implements Screen {
 			if (userDataWriter != null) {
 				this._gson.toJson(this._playerInventory, userDataWriter);
 
-//				Gdx.app.log("ShopScreen",
-//						"In initialize(), userData totalGold: " + this._playerInventory.getTotalGold());
+				Gdx.app.log("ShopScreen",
+						"In collectDailyAward(), finished updating JSON file for userData totalGold: " + this._playerInventory.getTotalGold());
 			} else {
 				Gdx.app.error("ShopScreen", "In collectDailyAward(), could not find  user Data.");
 			}

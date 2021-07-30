@@ -29,6 +29,8 @@ public class Asset {
 	public static final String SHIELD_1 = "images/shield 1.png";
 	public static final String SHOP_BUTTON = "images/shop button.png";
 	public static final String SHOP_SCREEN = "images/shop screen.png";
+	public static final String SPRITE_SHEET_SKIN = "skins/revisiting_horror_skin/sprite_sheet.json";
+	public static final String SPRITE_SHEET_ATLAS = "skins/revisiting_horror_skin/sprite_sheet.atlas";
 	public static final String SWORD_1 = "images/sword 1.png";
 
 	// music
