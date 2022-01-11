@@ -58,6 +58,7 @@ public class CountDownFour extends ImageBase {
 		// 2. broadcast the event
 		this._gameEventManager.broadcastEvent(gameEventCountDown);
 
+		// we are done handling this event
 		return true;
 
 	}

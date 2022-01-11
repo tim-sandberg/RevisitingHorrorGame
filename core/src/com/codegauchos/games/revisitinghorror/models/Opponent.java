@@ -13,7 +13,7 @@ import com.codegauchos.games.revisitinghorror.events.game.GameEventManager;
 
 public class Opponent extends CharacterBase {
 	// ****** fields *************
-	private int _agro;
+	private int _aggro;
 	private GameEventManager _gameEventManager;
 	private Sprite _sprite;
 	private float _deltaX;
@@ -25,12 +25,12 @@ public class Opponent extends CharacterBase {
 		return "START_INTRO";
 	}
 
-	public int getAgro() {
-		return _agro;
+	public int getAggro() {
+		return _aggro;
 	}
 
-	public void setAgro(int agro) {
-		this._agro = agro;
+	public void setAggro(int aggro) {
+		this._aggro = aggro;
 	}
 
 	public Sprite getSprite() {

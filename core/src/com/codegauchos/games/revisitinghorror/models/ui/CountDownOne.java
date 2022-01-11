@@ -44,7 +44,6 @@ public class CountDownOne extends ImageBase {
 
 			this.doCountDown(countDownEvent);
 		}
-
 	}
 
 	@Override
