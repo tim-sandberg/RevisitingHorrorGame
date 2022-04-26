@@ -38,7 +38,7 @@ public class PrepareToAttack extends ImageBase {
 
 			Gdx.app.log("PrepareToAttack", "In act(), visibility counter: " + this._visibilityCounter);
 
-			if (this._visibilityCounter > 10) {
+			if (this._visibilityCounter > 10000) {
 				this.setVisible(false);
 
 				this.handle(null);
@@ -57,6 +57,8 @@ public class PrepareToAttack extends ImageBase {
 			Gdx.app.log("PrepareToAttack", String.format(
 					"In onEvent(), event: %s occurred. doCountDown() will execute now.", this.getGameEventType()));
 			this.setVisible(true);
+			
+			this.handle(prepareToAttackEvent);
 		}
 	}
 

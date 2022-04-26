@@ -83,7 +83,8 @@ public class PlayerInventory extends ImageBase {
 
 		Gdx.app.log("PlayerInventory", "In act(), visibility timer: " + this._timer);
 
-		if (this._timer > 35) {
+//		TODO: replace this timer with a "Fight" button click
+		if (this._timer > 100005) {
 			this.setVisible(false);
 
 			if (this._playerInventoryEvent != null) {

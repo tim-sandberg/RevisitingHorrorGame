@@ -227,7 +227,7 @@ public class GameScreen implements Screen {
 	private void priortizeAttack() {
 		Gdx.app.log("GameScreen", "In priortizeAttack(), showing 'Prepare To Attack' message.");
 
-		// 1. roll dice to calculate who goes first
+		// 1. roll dice to calculate who goes first Math.Random(): 0.0 and 1.0
 		int playerDice = (int) (Math.random() * 100);
 
 		if (playerDice + this._playerAttackFactor > 49) {

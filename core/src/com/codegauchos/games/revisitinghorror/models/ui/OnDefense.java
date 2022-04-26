@@ -17,6 +17,12 @@ public class OnDefense extends ImageBase {
 		return "ON_DEFENSE";
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param texture
+	 * @param gameEventManager
+	 */
 	public OnDefense(Texture texture, GameEventManager gameEventManager) {
 		super(texture);
 
@@ -32,7 +38,7 @@ public class OnDefense extends ImageBase {
 
 			Gdx.app.log("OnDefense", "In act(), visibility counter: " + this._visibilityCounter);
 
-			if (this._visibilityCounter > 10) {
+			if (this._visibilityCounter > 10000) {
 				this.setVisible(false);
 
 				this.handle(null);
@@ -51,6 +57,8 @@ public class OnDefense extends ImageBase {
 			Gdx.app.log("OnDefense", String.format("In onEvent(), event: %s occurred. will make image visible.",
 					this.getGameEventType()));
 			this.setVisible(true);
+			
+			this.handle(onDefenseEvent);
 		}
 	}
 
